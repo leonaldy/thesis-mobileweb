@@ -1,0 +1,429 @@
+<div id="navbar" class="sidebar" [ngClass] = "{'is-sidebar-open':isSidebarShow}">
+  <!-- Main Sidebar -->
+  <div class="main-sidebar">
+      <div
+          class="flex h-full w-full flex-col items-center border-r border-slate-150 bg-white dark:border-navy-700 dark:bg-navy-800">
+          <!-- Application Logo -->
+          <div class="flex pt-4">
+              <a href="/">
+                  <img class="h-11 w-11 transition-transform duration-500 ease-in-out hover:rotate-[360deg]"
+                      src="../../../assets/images/app-logo.svg" alt="logo" />
+              </a>
+          </div>
+
+          <!-- Main Sections Links -->
+          <div class="is-scrollbar-hidden flex grow flex-col space-y-4 overflow-y-auto pt-6">
+            <!-- Dashobards -->
+            <button (click)="redirectTo('dashboard')"
+                [ngClass]="{
+                  'hidden':hiddenFor(['tailor','foreman']),
+                  'flex h-11 w-11 items-center justify-center rounded-lg outline-none transition-colors duration-200':true,
+                  'text-primary hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 bg-primary/10 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90':currentPage=='dashboard',
+                  'hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25':currentPage!='dashboard'
+                }">
+                <svg class="h-7 w-7" [ngClass]="{'text-slate-500 dark:text-navy-100':currentPage!='dashboard'}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M5 14.059c0-1.01 0-1.514.222-1.945.221-.43.632-.724 1.453-1.31l4.163-2.974c.56-.4.842-.601 1.162-.601.32 0 .601.2 1.162.601l4.163 2.974c.821.586 1.232.88 1.453 1.31.222.43.222.935.222 1.945V19c0 .943 0 1.414-.293 1.707C18.414 21 17.943 21 17 21H7c-.943 0-1.414 0-1.707-.293C5 20.414 5 19.943 5 19v-4.94Z" />
+                    <path fill="currentColor"
+                        d="M3 12.387c0 .267 0 .4.084.441.084.041.19-.04.4-.204l7.288-5.669c.59-.459.885-.688 1.228-.688.343 0 .638.23 1.228.688l7.288 5.669c.21.163.316.245.4.204.084-.04.084-.174.084-.441v-.409c0-.48 0-.72-.102-.928-.101-.208-.291-.355-.67-.65l-7-5.445c-.59-.459-.885-.688-1.228-.688-.343 0-.638.23-1.228.688l-7 5.445c-.379.295-.569.442-.67.65-.102.208-.102.448-.102.928v.409Z" />
+                    <path fill="currentColor"
+                        d="M11.5 15.5h1A1.5 1.5 0 0 1 14 17v3.5h-4V17a1.5 1.5 0 0 1 1.5-1.5Z" />
+                    <path fill="currentColor"
+                        d="M17.5 5h-1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5Z" />
+                </svg>
+            </button>
+
+            <!-- Broken Machine -->
+            <button
+              (click)="redirectTo('broken-machine')"
+              [ngClass]="{
+                'hidden':hiddenFor(['tailor','management','technician']),
+                'flex h-11 w-11 items-center justify-center rounded-lg outline-none transition-colors duration-200':true,
+                'text-primary hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 bg-primary/10 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90':currentPage=='broken-machine',
+                'hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25':currentPage!='broken-machine'
+              }">
+              <svg class="h-6 w-6" [ngClass]="{'text-slate-500 dark:text-navy-100':currentPage!='broken-machine'}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                  <path fill=" currentColor" d="M176 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64c-35.3 0-64 28.7-64 64H24c-13.3 0-24 10.7-24 24s10.7 24 24 24H64v56H24c-13.3 0-24 10.7-24 24s10.7 24 24 24H64v56H24c-13.3 0-24 10.7-24 24s10.7 24 24 24H64c0 35.3 28.7 64 64 64v40c0 13.3 10.7 24 24 24s24-10.7 24-24V448h56v40c0 13.3 10.7 24 24 24s24-10.7 24-24V448h56v40c0 13.3 10.7 24 24 24s24-10.7 24-24V448c35.3 0 64-28.7 64-64h40c13.3 0 24-10.7 24-24s-10.7-24-24-24H448V280h40c13.3 0 24-10.7 24-24s-10.7-24-24-24H448V176h40c13.3 0 24-10.7 24-24s-10.7-24-24-24H448c0-35.3-28.7-64-64-64V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H280V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H176V24zM160 128H352c17.7 0 32 14.3 32 32V352c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32zm192 32H160V352H352V160z"/>
+              </svg>
+            </button>
+
+            <!-- User -->
+            <button
+            (click)="redirectTo('user')"
+            [ngClass]="{
+              'hidden':hiddenFor(['tailor','technician']),
+              'flex h-11 w-11 items-center justify-center rounded-lg outline-none transition-colors duration-200':true,
+              'text-primary hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 bg-primary/10 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90':currentPage=='user',
+              'hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25':currentPage!='user'
+            }">
+              <svg class="h-6 w-6 text-slate-500 dark:text-navy-100" [ngClass]="{'text-slate-500 dark:text-navy-100':currentPage!='user'}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                <path fill="currentColor"  d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM609.3 512H471.4c5.4-9.4 8.6-20.3 8.6-32v-8c0-60.7-27.1-115.2-69.8-151.8c2.4-.1 4.7-.2 7.1-.2h61.4C567.8 320 640 392.2 640 481.3c0 17-13.8 30.7-30.7 30.7zM432 256c-31 0-59-12.6-79.3-32.9C372.4 196.5 384 163.6 384 128c0-26.8-6.6-52.1-18.3-74.3C384.3 40.1 407.2 32 432 32c61.9 0 112 50.1 112 112s-50.1 112-112 112z"/>
+              </svg>
+            </button>
+
+            <!-- Machine -->
+            <button
+              (click)="redirectTo('machine')"
+              [ngClass]="{
+                'hidden':hiddenFor(['tailor','foreman','technician']),
+                'flex h-11 w-11 items-center justify-center rounded-lg outline-none transition-colors duration-200':true,
+                'text-primary hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 bg-primary/10 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90':currentPage=='machine',
+                'hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25':currentPage!='machine'
+              }">
+              <svg class="h-6 w-6" [ngClass]="{'text-slate-500 dark:text-navy-100':currentPage!='machine'}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                  <path fill=" currentColor" d="M176 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64c-35.3 0-64 28.7-64 64H24c-13.3 0-24 10.7-24 24s10.7 24 24 24H64v56H24c-13.3 0-24 10.7-24 24s10.7 24 24 24H64v56H24c-13.3 0-24 10.7-24 24s10.7 24 24 24H64c0 35.3 28.7 64 64 64v40c0 13.3 10.7 24 24 24s24-10.7 24-24V448h56v40c0 13.3 10.7 24 24 24s24-10.7 24-24V448h56v40c0 13.3 10.7 24 24 24s24-10.7 24-24V448c35.3 0 64-28.7 64-64h40c13.3 0 24-10.7 24-24s-10.7-24-24-24H448V280h40c13.3 0 24-10.7 24-24s-10.7-24-24-24H448V176h40c13.3 0 24-10.7 24-24s-10.7-24-24-24H448c0-35.3-28.7-64-64-64V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H280V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H176V24zM160 128H352c17.7 0 32 14.3 32 32V352c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32zm192 32H160V352H352V160z"/>
+              </svg>
+            </button>
+
+            <!-- Report -->
+            <button
+              (click)="redirectTo('report')"
+              [ngClass]="{
+                'hidden':hiddenFor(['tailor','foreman','technician']),
+                'flex h-11 w-11 items-center justify-center rounded-lg outline-none transition-colors duration-200':true,
+                'text-primary hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 bg-primary/10 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90':currentPage=='report',
+                'hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25':currentPage!='report'
+              }">
+              <svg [ngClass]="{'text-slate-500 dark:text-navy-100':currentPage!='report'}" class="h-6 w-6 text-slate-500 dark:text-navy-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                  <path fill="currentColor"  d="M256 0c53 0 96 43 96 96v3.6c0 15.7-12.7 28.4-28.4 28.4H188.4c-15.7 0-28.4-12.7-28.4-28.4V96c0-53 43-96 96-96zM41.4 105.4c12.5-12.5 32.8-12.5 45.3 0l64 64c.7 .7 1.3 1.4 1.9 2.1c14.2-7.3 30.4-11.4 47.5-11.4H312c17.1 0 33.2 4.1 47.5 11.4c.6-.7 1.2-1.4 1.9-2.1l64-64c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-64 64c-.7 .7-1.4 1.3-2.1 1.9c6.2 12 10.1 25.3 11.1 39.5H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H416c0 24.6-5.5 47.8-15.4 68.6c2.2 1.3 4.2 2.9 6 4.8l64 64c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-63.1-63.1c-24.5 21.8-55.8 36.2-90.3 39.6V240c0-8.8-7.2-16-16-16s-16 7.2-16 16V479.2c-34.5-3.4-65.8-17.8-90.3-39.6L86.6 502.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l64-64c1.9-1.9 3.9-3.4 6-4.8C101.5 367.8 96 344.6 96 320H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H96.3c1.1-14.1 5-27.5 11.1-39.5c-.7-.6-1.4-1.2-2.1-1.9l-64-64c-12.5-12.5-12.5-32.8 0-45.3z"/>
+              </svg>
+            </button>
+
+            <!-- Sparepart -->
+            <button
+              (click)="redirectTo('sparepart')"
+              [ngClass]="{
+                'hidden':hiddenFor(['tailor','foreman', 'technician']),
+                'flex h-11 w-11 items-center justify-center rounded-lg outline-none transition-colors duration-200':true,
+                'text-primary hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 bg-primary/10 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90':currentPage=='sparepart',
+                'hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25':currentPage!='sparepart'
+              }">
+              <svg [ngClass]="{'text-slate-500 dark:text-navy-100':currentPage!='sparepart'}" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-500 dark:text-navy-100" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M14 8V5M11 5H17M6 12H3M3 9V15M21 11V19M9 12H9.01M12 12H12.01M15 12H15.01M6 8V16H8L10 19H18V10L16 8H6Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <!-- Category -->
+            <button
+              (click)="redirectTo('category')"
+              [ngClass]="{
+                'hidden': hiddenFor(['tailor','foreman','technician']),
+                'flex h-11 w-11 items-center justify-center rounded-lg outline-none transition-colors duration-200': true,
+                'text-primary hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 bg-primary/10 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90': currentPage == 'category',
+                'hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25': currentPage != 'category'
+              }"
+            >
+              <svg class="h-6 w-6" [ngClass]="{'text-slate-500 dark:text-navy-100': currentPage != 'category'}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                <g clip-path="url(#clip0_429_11052)">
+                  <circle cx="17" cy="7" r="3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <circle cx="7" cy="17" r="3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M14 14H20V19C20 19.5523 19.5523 20 19 20H15C14.4477 20 14 19.5523 14 19V14Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M4 4H10V9C10 9.55228 9.55228 10 9 10H5C4.44772 10 4 9.55228 4 9V4Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+                <defs>
+                  <clipPath id="clip0_429_11052">
+                    <rect width="24" height="24" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Bottom Links -->
+          <div class="flex flex-col items-center space-y-3 py-3">
+              <!-- Profile -->
+              <div id="profile-wrapper" class="flex">
+                <button id="profile-ref" class="avatar h-12 w-12" (click) = "isProfileShow=!isProfileShow">
+                  <img
+                    class="rounded-full shadow-lg border-4 border-slate-100 dark:border-navy-700"
+                    [src]="getProfileImage(role)"
+                    alt="avatar"
+                  />
+                </button>
+                <div id="profile-box" class="popper-root fixed" [ngClass]="{'show':isProfileShow}">
+                  <div class="popper-box w-64 rounded-lg border border-slate-150 bg-white shadow-soft dark:border-navy-600 dark:bg-navy-700">
+                    <div class="flex items-center space-x-4 rounded-t-lg bg-slate-100 py-5 px-4 dark:bg-navy-800">
+                      <div class="avatar h-14 w-14">
+                        <img
+                          class="rounded-full shadow-lg border-4 border-slate-100 dark:border-navy-700"
+                          [src]="getProfileImage(role)"
+                          alt="avatar"
+                        />
+                      </div>
+                      <div>
+                        <button (click)="redirectTo('profile')" class="text-base font-medium text-slate-700 hover:text-primary focus:text-primary dark:text-navy-100 dark:hover:text-accent-light dark:focus:text-accent-light">
+                          {{ username }}
+                        </button>
+                        <p class="text-xs text-slate-400 dark:text-navy-300">
+                          {{ role }}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="flex flex-col pt-2 pb-5">
+                      <!-- <a href="#" class="group flex items-center space-x-3 py-2 px-4 tracking-wide outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
+                        <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-warning text-white">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-4.5 w-4.5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                            />
+                          </svg>
+                        </div>
+
+                        <div class="overflow-hidden">
+                          <h2 class="truncate font-medium text-slate-700 transition-colors group-hover:text-primary group-focus:text-primary dark:text-navy-100 dark:group-hover:text-accent-light dark:group-focus:text-accent-light">
+                            {{ email === "null" ? "-"  : email}}
+                          </h2>
+                          <div class="text-xs text-slate-400 line-clamp-1 dark:text-navy-300">
+                            Email
+                          </div>
+                        </div>
+                      </a> -->
+                      <a href="#" class="group flex items-center space-x-3 py-2 px-4 tracking-wide outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
+                        <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-info text-white">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-4.5 w-4.5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                            />
+                          </svg>
+                        </div>
+
+                        <div>
+                          <h2 class="font-medium text-slate-700 transition-colors group-hover:text-primary group-focus:text-primary dark:text-navy-100 dark:group-hover:text-accent-light dark:group-focus:text-accent-light">
+                            {{ phone_number }}
+                          </h2>
+                          <div class="text-xs text-slate-400 line-clamp-1 dark:text-navy-300">
+                            Nomor Telepon
+                          </div>
+                        </div>
+                      </a>
+                      <div class="mt-3 px-4">
+                        <button (click) = "logout()" class="btn h-9 w-full space-x-2 bg-primary text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+                           <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-5 w-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="1.5"
+                              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                            />
+                          </svg>
+                          <span>Keluar</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Sidebar Panel -->
+   <div class="sidebar-panel">
+    <div class="flex h-full grow flex-col bg-white pl-[var(--main-sidebar-width)] dark:bg-navy-750">
+      <!-- Sidebar Panel Header -->
+      <div class="flex h-18 w-full items-center justify-between pl-4 pr-1">
+        <p class="capitalize text-base tracking-wider text-slate-800 dark:text-navy-100">
+          {{  getPageIN(currentPage.replace('-',' ')) }}
+        </p>
+        <button (click)="isSidebarShow = false; isProfileShow = false" class="sidebar-close btn h-7 w-7 rounded-full p-0 text-primary hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:text-accent-light/80 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25 xl:hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Sidebar Panel Body -->
+      <div class="nav-wrapper h-[calc(100%-4.5rem)] overflow-x-hidden pb-6 simplebar-scrollable-y" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px 0px -24px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px 0px 24px;">
+        <ul class="flex flex-1 flex-col px-4 font-inter">
+          <li [ngClass] = "{
+                  'hidden':hiddenFor(['tailor','foreman'])
+          }">
+            <button (click)="redirectTo('dashboard')" data-default-class="text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50" data-active-class="font-medium text-primary dark:text-accent-light" class="nav-link flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50">
+              Beranda
+            </button>
+          </li>
+        </ul>
+        <div class="my-3 mx-4 h-px bg-slate-200 dark:bg-navy-500"></div>
+        <ul class="flex flex-1 flex-col px-4 font-inter">
+          <li [ngClass]="{'hidden':hiddenFor(['tailor','management','technician'])}">
+            <button (click)="redirectTo('broken-machine')" data-default-class="text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50" data-active-class="font-medium text-primary dark:text-accent-light" class="nav-link flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50">
+              Beranda Mandor
+            </button>
+          </li>
+          <li [ngClass]="{'hidden':hiddenFor(['tailor','technician'])}">
+            <button (click)="redirectTo('user')" data-default-class="text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50" data-active-class="font-medium text-primary dark:text-accent-light" class="nav-link flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50">
+              Pengguna
+            </button>
+          </li>
+          <li [ngClass]="{'hidden':hiddenFor(['tailor','foreman', 'technician'])}">
+            <button (click)="redirectTo('machine')" data-default-class="text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50" data-active-class="font-medium text-primary dark:text-accent-light" class="nav-link flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50">
+              Mesin
+            </button>
+          </li>
+          <li [ngClass]="{'hidden':hiddenFor(['tailor','foreman','technician'])}">
+            <button (click)="redirectTo('report')" data-default-class="text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50" data-active-class="font-medium text-primary dark:text-accent-light" class="nav-link flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50">
+              Laporan
+            </button>
+          </li>
+          <li [ngClass]="{'hidden':hiddenFor(['tailor','foreman', 'technician'])}">
+            <button (click)="redirectTo('sparepart')" data-default-class="text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50" data-active-class="font-medium text-primary dark:text-accent-light" class="nav-link flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50">
+              Suku Cadang
+            </button>
+          </li>
+          <li [ngClass]="{'hidden':hiddenFor(['tailor','foreman', 'technician'])}">
+            <button (click)="redirectTo('category')" data-default-class="text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50" data-active-class="font-medium text-primary dark:text-accent-light" class="nav-link flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50">
+              Kategori
+            </button>
+          </li>
+        </ul>
+        <div [ngClass]="{'hidden':hiddenFor(['tailor', 'technician'])}" class="my-3 mx-4 h-px bg-slate-200 dark:bg-navy-500"></div>
+        <ul class="flex flex-1 flex-col px-4 font-inter">
+          <li>
+            <button (click) = "logout()" data-default-class="text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50" data-active-class="font-medium text-primary dark:text-accent-light" class="nav-link flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50">
+              Keluar
+            </button>
+          </li>
+        </ul>
+      </div></div></div></div><div class="simplebar-placeholder" style="width: 230px; height: 686px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 344px; transform: translate3d(0px, 50px, 0px); display: block;"></div></div></div>
+    </div>
+   </div>
+
+  <nav class="header print:hidden">
+    <!-- App Header  -->
+    <div class="header-container relative flex w-full bg-white dark:bg-navy-700 print:hidden">
+        <!-- Header Items -->
+        <div class="flex w-full items-center justify-between">
+            <!-- Left: Sidebar Toggle Button -->
+            <div class="flex items-center">
+                <div class="block h-7 w-7">
+                    <button (click) = "isSidebarShow = !isSidebarShow"
+                    class="sidebar-toggle ml-0.5 flex h-7 w-7 flex-col justify-center space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+                <span style="font-family: 'Futuristic', sans-serif;" class="ml-4 mt-2 text-4xl font-bold dark:text-navy-100">PT XYZ</span>
+            </div>
+
+            <!-- Right: Header buttons -->
+            <div class="-mr-1.5 flex items-center space-x-2">
+              <!-- Notification Toggle -->
+              <div id="notification-wrapper" class="flex" (click)="showNotifBox(!isNotifBoxShow)">
+                <button
+                  id="notification-ref"
+                  class="btn relative h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:active:bg-navy-300/25"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 text-slate-500 dark:text-navy-100"
+                    stroke="currentColor"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.5"
+                      d="M15.375 17.556h-6.75m6.75 0H21l-1.58-1.562a2.254 2.254 0 01-.67-1.596v-3.51a6.612 6.612 0 00-1.238-3.85 6.744 6.744 0 00-3.262-2.437v-.379c0-.59-.237-1.154-.659-1.571A2.265 2.265 0 0012 2c-.597 0-1.169.234-1.591.65a2.208 2.208 0 00-.659 1.572v.38c-2.621.915-4.5 3.385-4.5 6.287v3.51c0 .598-.24 1.172-.67 1.595L3 17.556h12.375zm0 0v1.11c0 .885-.356 1.733-.989 2.358A3.397 3.397 0 0112 22a3.397 3.397 0 01-2.386-.976 3.313 3.313 0 01-.989-2.357v-1.111h6.75z"
+                    />
+                  </svg>
+
+                  <span *ngIf="statusNotification"
+                    class="absolute -top-px -right-px flex h-3 w-3 items-center justify-center"
+                  >
+                    <span
+                      class="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-80"
+                    ></span>
+                    <span
+                      class="inline-flex h-2 w-2 rounded-full bg-secondary"
+                    ></span>
+                  </span>
+                </button>
+
+                <div id="notification-box" class="popper-root" [ngClass]="{'show': isNotifBoxShow}" data-popper-placement="bottom-end">
+                  <div class="notification-tab-wrapper popper-box mx-4 mt-1 flex max-h-[calc(100vh-6rem)] w-[calc(100vw-2rem)] flex-col rounded-lg border border-slate-150 bg-white shadow-soft dark:border-navy-800 dark:bg-navy-700 dark:shadow-soft-dark sm:m-0 sm:w-80">
+                    <div class="rounded-t-lg bg-slate-100 text-slate-600 dark:bg-navy-800 dark:text-navy-200">
+                      <div class="flex items-center justify-between px-4 pt-2">
+                        <div class="flex items-center space-x-2">
+                          <h3 class="font-medium text-slate-700 dark:text-navy-100">
+                            Notifikasi
+                          </h3>
+                          <div class="badge h-5 rounded-full bg-primary/10 px-1.5 text-primary dark:bg-accent-light/15 dark:text-accent-light">
+                            {{ totalNotif }}
+                          </div>
+                        </div>
+                        <button class="btn -mr-1.5 h-7 w-7 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="flex flex-col overflow-hidden">
+                      <!-- Empty state -->
+                      <div *ngIf="!notifications || notifications.length === 0" class="flex flex-col items-center justify-center py-8 px-4">
+                        <p class="text-sm text-slate-500 dark:text-navy-400 text-center">
+                          Tidak ada notifikasi
+                        </p>
+                      </div>
+
+                      <!-- Notifications list -->
+                      <div *ngIf="notifications && notifications.length > 0" class="space-y-4 overflow-y-auto px-4 py-4">
+                        <div
+                          *ngFor="let notif of notifications"
+                          class="flex items-center space-x-3 cursor-pointer hover:bg-slate-100 dark:hover:bg-navy-600 rounded p-2"
+                          [class.opacity-60]="notif.read_at"
+                        >
+                          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-secondary/10 dark:bg-secondary-light/15">
+                            <i class="fa fa-bell text-secondary dark:text-secondary-light"></i>
+                          </div>
+                          <div class="flex-1">
+                            <p class="font-medium text-slate-600 dark:text-navy-100">
+                              {{ notif.title }}
+                            </p>
+                            <div class="mt-1 text-xs text-slate-400 line-clamp-1 dark:text-navy-300">
+                              {{ notif.body }}
+                            </div>
+                            <div class="mt-1 text-xs text-slate-400 dark:text-navy-300">
+                              {{ formatTime(notif.created_at) }}
+                            </div>
+                          </div>
+                          <div *ngIf="!notif.read_at" class="ml-auto w-2 h-2 rounded-full bg-red-500"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+</div>

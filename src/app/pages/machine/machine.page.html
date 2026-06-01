@@ -1,0 +1,351 @@
+<ion-content [fullscreen]="true" class="bg-slate-50 dark:bg-navy-900">
+  <main class="main-content px-[var(--margin-x)] pb-8 bg-slate-50 dark:bg-navy-900">
+    <div class="grid grid-cols-1 gap-4 sm:gap-5 lg:gap-6">
+      <div class="mt-3">
+        <!-- Header Section -->
+        <div class="flex flex-col space-y-3 sm:space-y-0 sm:flex-row sm:items-center sm:justify-between">
+          <h2 class="text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100">
+            Mesin
+          </h2>
+          <div class="flex items-center space-x-2">
+            <!-- Search Input -->
+            <div class="table-search-wrapper flex items-center flex-1 sm:flex-initial">
+              <label class="block flex-1 sm:flex-initial">
+                <input
+                  class="table-search-input form-input w-full sm:w-0 h-10 bg-transparent px-3 sm:px-1 text-left sm:text-right transition-all duration-100 placeholder:text-slate-500 dark:placeholder:text-navy-200 dark:text-light border border-slate-300 dark:border-navy-600 rounded-lg sm:border-none"
+                  placeholder="Cari di sini..."
+                  [ngClass]="{'sm:w-0': !isSearchShow, 'sm:w-48': isSearchShow}"
+                  type="text"
+                  (keyup)="onSearch($event)"
+                />
+              </label>
+              <button
+                (click)="isSearchShow = !isSearchShow"
+                class="hidden sm:flex items-center justify-center table-search-toggle btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25 dark:text-navy-100"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </button>
+            </div>
+            <!-- Add Machine Button -->
+            <button
+              [routerLink]="['/machine/add']"
+              class="btn bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90 px-4 py-2 text-sm sm:text-base whitespace-nowrap"
+            >
+              <span class="hidden xs:inline">Tambah Mesin</span>
+              <span class="xs:hidden">+</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="card mt-4 sm:mt-3">
+          <!-- Desktop Table View -->
+          <div class="max-w-full overflow-x-auto hidden md:block">
+            <div class="bg-white dark:bg-navy-800 rounded-lg shadow-md overflow-hidden">
+              <table class="w-full text-left">
+                <thead>
+                  <tr class="bg-slate-50 dark:bg-navy-700 border-b border-slate-200 dark:border-navy-600">
+                    <th class="px-6 py-4 font-semibold text-slate-700 dark:text-navy-100">
+                      NIM
+                    </th>
+                    <th class="px-6 py-4 font-semibold text-slate-700 dark:text-navy-100">
+                      Tipe
+                    </th>
+                    <th class="px-6 py-4 font-semibold text-slate-700 dark:text-navy-100">
+                      Merk
+                    </th>
+                    <th class="px-6 py-4 font-semibold text-slate-700 dark:text-navy-100">
+                      Status
+                    </th>
+                    <th class="px-6 py-4 font-semibold text-slate-700 dark:text-navy-100">
+                      Penjahit
+                    </th>
+                    <th class="px-6 py-4 font-semibold text-slate-700 dark:text-navy-100 text-center">
+                      Aksi
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    [routerLink]="['/machine/update', item.id]"
+                    [ngClass]="{'hidden':isLoadingLoad}"
+                    *ngFor="let item of listMachines; let i = index"
+                    class="border-b border-slate-100 dark:border-navy-600 hover:bg-slate-50 dark:hover:bg-navy-700 transition-colors duration-200 cursor-pointer"
+                  >
+                    <td class="px-6 py-4">
+                      <span class="text-slate-600 dark:text-navy-300">
+                        {{ item.nim }}
+                      </span>
+                    </td>
+                    <td class="px-6 py-4">
+                      <div class="font-medium text-slate-900 dark:text-navy-100">
+                        {{ item.machine_type }}
+                      </div>
+                    </td>
+                    <td class="px-6 py-4">
+                      <span class="text-slate-600 dark:text-navy-300">
+                        {{ limit_length(item.machine_merk, 75) }}
+                      </span>
+                    </td>
+                    <td class="px-6 py-4">
+                      <span
+                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
+                        [ngClass]="{
+                          'bg-yellow-50 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300': item.status === 'repair requested',
+                          'bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-300': item.status === 'under repair',
+                          'bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-300': item.status === 'available',
+                          'bg-slate-50 text-slate-700 dark:bg-slate-800 dark:text-slate-300': !['repair requested', 'under repair', 'available'].includes(item.status)
+                        }"
+                      >
+                        {{ getStatusIN(item.status) }}
+                      </span>
+                    </td>
+                    <td class="px-6 py-4">
+                      <div class="flex items-center space-x-2">
+                        <span
+                          class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border"
+                          [ngClass]="{
+                            'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-200 dark:border-emerald-700': item.user,
+                            'bg-slate-100 text-slate-600 border-slate-200 dark:bg-navy-700 dark:text-navy-50 dark:border-navy-600': !item.user
+                          }"
+                        >
+                          {{ getAssignmentStatus(item) }}
+                        </span>
+                        <span *ngIf="item.user" class="text-xs text-slate-600 dark:text-navy-200 truncate max-w-[160px]">
+                          {{ item.user.name }}
+                        </span>
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 text-center">
+                      <div class="flex justify-center space-x-2">
+                        <button
+                          [routerLink]="['/machine/update', item.id]"
+                          class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-blue-600 hover:text-blue-700 hover:bg-blue-50 dark:text-blue-400 dark:hover:text-blue-300 dark:hover:bg-blue-900/20 border border-blue-300 hover:border-blue-400 dark:border-blue-600 dark:hover:border-blue-500 rounded-md transition-all duration-200"
+                          (click)="$event.stopPropagation()"
+                        >
+                          Ubah
+                        </button>
+                        <button
+                          (click)="deleteDataConfirmation(item); $event.stopPropagation()"
+                          class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 dark:text-red-400 dark:hover:text-red-300 dark:hover:bg-red-900/20 border border-red-300 hover:border-red-400 dark:border-red-600 dark:hover:border-red-500 rounded-md transition-all duration-200"
+                        >
+                          Hapus
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Loading Row -->
+                  <tr [ngClass]="{'hidden':!isLoadingLoad}">
+                    <td colspan="6" class="px-6 py-8 text-center">
+                      <div class="flex justify-center items-center space-x-2">
+                        <div class="w-6 h-6 border-2 border-slate-300 border-t-slate-600 rounded-full animate-spin dark:border-navy-500 dark:border-t-navy-200"></div>
+                        <span class="text-slate-600 dark:text-navy-300">Memuat...</span>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr *ngIf="!isLoadingLoad && (!listMachines || listMachines.length === 0)">
+                    <td colspan="6" class="px-6 py-10 text-center text-slate-500 dark:text-navy-200">
+                      <div class="flex flex-col items-center">
+                        <div class="mx-auto mb-3 h-12 w-12 rounded-full border border-slate-300/60 dark:border-navy-600/60 flex items-center justify-center">
+                          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none">
+                            <path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                          </svg>
+                        </div>
+                        <div class="font-semibold">Tidak ada data mesin</div>
+                        <div class="text-xs mt-1">Coba ubah pencarian atau filter.</div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Mobile Card View -->
+          <div class="md:hidden">
+            <!-- Loading State -->
+            <div [ngClass]="{'hidden':!isLoadingLoad}" class="flex justify-center py-8">
+              <div class="spinner is-elastic h-7 w-7 animate-spin rounded-full border-[3px] border-primary border-r-transparent dark:border-accent dark:border-r-transparent"></div>
+            </div>
+
+            <!-- Machine Cards -->
+            <div class="space-y-3 p-4" [ngClass]="{'hidden': isLoadingLoad}">
+              <ng-container *ngIf="listMachines && listMachines.length > 0; else emptyMachinesMobile">
+                <div
+                  *ngFor="let item of listMachines; let i = index"
+                  (click)="redirectTo('/machine/update/'+item.id)"
+                  class="bg-white dark:bg-navy-800 rounded-lg border border-slate-200 dark:border-navy-600 p-4 cursor-pointer hover:shadow-md transition-shadow duration-200"
+                >
+                  <!-- Machine Name Header -->
+                  <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-lg font-semibold text-slate-900 dark:text-navy-100 truncate pr-2">
+                      {{ item.machine_type }}
+                    </h3>
+                    <div
+                      (click)="deleteDataConfirmation(item); $event.stopPropagation()"
+                      class="flex-shrink-0 px-3 py-1 rounded-full border border-danger text-danger text-xs font-medium hover:bg-danger hover:text-white dark:text-danger-focus dark:hover:text-navy-200 transition-colors duration-200 cursor-pointer"
+                    >
+                      HAPUS
+                    </div>
+                  </div>
+
+                  <!-- Machine Details -->
+                  <div class="space-y-2">
+                    <div class="flex items-center space-x-2">
+                      <span class="text-xs font-medium text-slate-500 dark:text-navy-300 min-w-[80px]">NIM:</span>
+                      <span class="text-sm text-slate-700 dark:text-navy-200 px-2 py-1 bg-slate-100 dark:bg-navy-700 rounded text-accent border border-accent/20">{{ item.nim }}</span>
+                    </div>
+
+                    <div class="flex items-start space-x-2">
+                      <span class="text-xs font-medium text-slate-500 dark:text-navy-300 min-w-[80px] mt-1">Tipe:</span>
+                      <span class="text-sm text-slate-700 dark:text-navy-200 px-2 py-1 bg-slate-100 dark:bg-navy-700 rounded text-info border border-info/20 break-all">{{ limit_length(item.machine_type, 75) }}</span>
+                    </div>
+
+                    <div class="flex items-start space-x-2">
+                      <span class="text-xs font-medium text-slate-500 dark:text-navy-300 min-w-[80px] mt-1">Merk:</span>
+                      <span class="text-sm text-slate-700 dark:text-navy-200 px-2 py-1 bg-slate-100 dark:bg-navy-700 rounded text-info border border-info/20 break-all">{{ limit_length(item.machine_merk, 75) }}</span>
+                    </div>
+
+                    <div class="flex items-center space-x-2">
+                      <span class="text-xs font-medium text-slate-500 dark:text-navy-300 min-w-[80px]">Status:</span>
+                      <span
+                        class="text-sm px-2 py-1 rounded border"
+                        [ngClass]="{
+                          'text-red-700 dark:text-red-300 bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-700': item.status === 'repair',
+                          'text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-700': item.status === 'available',
+                          'text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-600': !['repair', 'available'].includes(item.status)
+                        }"
+                      >
+                        {{ getStatusIN(item.status) }}
+                      </span>
+                    </div>
+
+                    <div class="flex items-start space-x-2">
+                      <span class="text-xs font-medium text-slate-500 dark:text-navy-300 min-w-[80px] mt-1">Penjahit:</span>
+                      <div class="flex flex-col space-y-1">
+                        <span
+                          class="text-[13px] px-2 py-1 rounded border inline-flex items-center w-fit"
+                          [ngClass]="{
+                            'text-emerald-700 dark:text-emerald-200 bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-700': item.user,
+                            'text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-navy-700 border-slate-200 dark:border-navy-600': !item.user
+                          }"
+                        >
+                          {{ getAssignmentStatus(item) }}
+                        </span>
+                        <span *ngIf="item.user" class="text-xs text-slate-600 dark:text-navy-200">
+                          {{ item.user.name }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Navigation Indicator -->
+                  <div class="flex justify-end mt-3">
+                    <svg class="h-4 w-4 text-slate-400 dark:text-navy-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
+              </ng-container>
+
+              <!-- EMPTY STATE MOBILE -->
+              <ng-template #emptyMachinesMobile>
+                <div class="bg-white dark:bg-navy-800 rounded-lg border border-slate-200 dark:border-navy-600 p-6 text-center text-slate-600 dark:text-navy-200">
+                  <div class="mx-auto mb-3 h-12 w-12 rounded-full border border-slate-300/60 dark:border-navy-600/60 flex items-center justify-center">
+                    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none">
+                      <path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="font-semibold">Tidak ada data mesin</div>
+                  <div class="text-xs mt-1">Coba ubah pencarian.</div>
+                </div>
+              </ng-template>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex flex-col space-y-4 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0 sm:px-5 bg-white dark:bg-navy-800 rounded-lg mt-4 border border-slate-200 dark:border-navy-600">
+          <!-- Pagination Controls -->
+          <div class="flex justify-center sm:justify-start">
+            <ul class="pagination flex items-center space-x-1">
+              <li class="rounded-l-lg bg-slate-150 dark:bg-navy-500">
+                <a
+                  (click)="setPage(selectedPage-1)"
+                  class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors hover:bg-slate-300 dark:text-navy-200 dark:hover:bg-navy-450 cursor-pointer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15 19l-7-7 7-7"
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li class="bg-slate-150 dark:bg-navy-500"
+                *ngFor="let page of visiblePages; let i = index">
+                <button
+                  (click)="setPage(page)"
+                  [ngClass]="{'flex h-8 min-w-[2rem] items-center justify-center rounded-lg leading-tight px-3 transition-colors text-sm':true,
+                              'hover:bg-slate-300 focus:bg-slate-300 active:bg-slate-300/80 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90 text-slate-700 dark:text-navy-200': page !== selectedPage,
+                              'bg-primary text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90': page === selectedPage}">
+                  {{ page }}
+                </button>
+              </li>
+              <li class="rounded-r-lg bg-slate-150 dark:bg-navy-500">
+                <a
+                  (click)="setPage(selectedPage+1)"
+                  class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors hover:bg-slate-300 dark:text-navy-200 dark:hover:bg-navy-450 cursor-pointer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Entry Count -->
+          <div class="text-xs text-center sm:text-right text-slate-600 dark:text-navy-300">
+            {{ firstIndEntry }} - {{ lastIndEntry }} dari {{ totalItems }} entri
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</ion-content>

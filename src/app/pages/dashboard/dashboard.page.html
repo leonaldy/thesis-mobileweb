@@ -1,0 +1,890 @@
+<ion-content [fullscreen]="true" class="bg-slate-50 dark:bg-navy-900">
+  <main class="main-content px-[var(--margin-x)] pb-8 bg-slate-50 dark:bg-navy-900">
+    <div class="mt-3 grid grid-cols-12 gap-3 sm:mt-4 sm:gap-4 lg:mt-6 lg:gap-6">
+      <!-- Management Charts Section -->
+      <ng-container *ngIf="roleUser === 'management'">
+
+        <!-- Global Filters Bar -->
+        <div class="col-span-12">
+          <div class="flex items-center justify-between px-1">
+            <div class="flex items-center gap-2">
+              <span class="text-sm text-slate-600 dark:text-navy-200">Tahun</span>
+              <select
+                class="w-28 h-9 rounded-lg border border-slate-300 bg-white px-3 text-sm shadow-sm
+                      focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                      dark:border-navy-600 dark:bg-navy-700 dark:text-white"
+                [(ngModel)]="selectedYear"
+                (change)="onYearFilterChange()"
+                aria-label="Filter Tahun"
+              >
+                <option *ngFor="let y of yearOptions" [value]="y">{{ y }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Total Machine Damaged Chart -->
+        <div class="col-span-12 lg:col-span-6">
+          <div class="card h-full">
+            <!-- Header: tinggi konsisten + slot actions -->
+            <div class="flex items-center gap-2 px-4 py-3 sm:px-5 min-h-[48px]">
+              <h2 class="text-sm font-medium tracking-wide text-slate-700 dark:text-navy-100 sm:text-base">
+                Total Kerusakan Mesin / Bulan
+              </h2>
+
+              <div class="ml-auto flex items-center gap-1.5">
+                <button
+                  class="inline-flex h-9 w-9 items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-navy-600"
+                  aria-label="Export Excel"
+                  (click)="exportChart('machines_damage_per_month')"
+                  title="Export Excel">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                      viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M7.5 10.5L12 15m0 0l4.5-4.5M12 15V3" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Body -->
+            <div class="w-full px-4 pb-4 sm:px-5 sm:pb-5">
+              <div class="relative h-[320px] md:h-[360px]">
+                <canvas id="totalMachineCrashedChart" class="absolute inset-0 w-full h-full hidden"></canvas>
+
+                <div id="totalMachineCrashedChart-loading" class="absolute inset-0 grid place-items-center">
+                  <div class="spinner is-elastic h-7 w-7 animate-spin rounded-full border-[3px]
+                              border-primary border-r-transparent dark:border-accent dark:border-r-transparent"></div>
+                </div>
+
+                <div id="totalMachineCrashedChart-empty"
+                    class="absolute inset-0 hidden grid place-items-center text-center
+                            text-slate-500 dark:text-navy-200 px-6">
+                  Belum ada data untuk filter yang dipilih.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Machine Damaged Yearly Chart -->
+        <div class="col-span-12 lg:col-span-6">
+          <div class="card h-full">
+            <div class="flex items-center gap-2 px-4 py-3 sm:px-5 min-h-[48px]">
+              <h2 class="text-sm font-medium tracking-wide text-slate-700 dark:text-navy-100 sm:text-base">
+                Kerusakan Mesin / Tahun
+              </h2>
+
+              <div class="ml-auto flex items-center gap-1.5">
+                <button
+                  class="inline-flex h-9 w-9 items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-navy-600"
+                  aria-label="Export Excel"
+                  (click)="exportChart('machines_damage')"
+                  title="Export Excel">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                      viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M7.5 10.5L12 15m0 0l4.5-4.5M12 15V3" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Body -->
+            <div class="w-full px-4 pb-4 sm:px-5 sm:pb-5">
+              <div class="relative h-[320px] md:h-[360px]">
+                <canvas id="machineCrashedChart" class="absolute inset-0 w-full h-full hidden"></canvas>
+
+                <div id="machineCrashedChart-loading" class="absolute inset-0 grid place-items-center">
+                  <div class="spinner is-elastic h-7 w-7 animate-spin rounded-full border-[3px]
+                              border-primary border-r-transparent dark:border-accent dark:border-r-transparent"></div>
+                </div>
+
+                <div id="machineCrashedChart-empty"
+                    class="absolute inset-0 hidden grid place-items-center text-center
+                            text-slate-500 dark:text-navy-200 px-6">
+                  Belum ada data untuk filter yang dipilih.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Technician Repair Chart -->
+        <div class="col-span-12 lg:col-span-6">
+          <div class="card">
+            <div class="flex items-center gap-2 px-4 py-3 sm:px-5 min-h-[48px]">
+              <h2 class="text-sm font-medium tracking-wide text-slate-700 dark:text-navy-100 sm:text-base">
+                Perbaikan oleh Teknisi / Tahun
+              </h2>
+              <div class="ml-auto flex items-center gap-1.5">
+                <button
+                  class="inline-flex h-9 w-9 items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-navy-600"
+                  aria-label="Export Excel"
+                  (click)="exportChart('repairs_per_technician')"
+                  title="Export Excel">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                      viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M7.5 10.5L12 15m0 0l4.5-4.5M12 15V3" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="w-full px-4 pb-4 sm:px-5 sm:pb-5 min-h-[200px] flex flex-col">
+              <canvas id="technicianRepairChart" class="w-full hidden"></canvas>
+
+              <div id="technicianRepairChart-loading"
+                  class="mx-auto my-auto spinner is-elastic h-7 w-7 animate-spin rounded-full border-[3px] border-primary border-r-transparent dark:border-accent dark:border-r-transparent">
+              </div>
+
+              <div id="technicianRepairChart-empty"
+                  class="hidden flex-1 flex items-center justify-center text-center text-slate-500 dark:text-navy-200">
+                Belum ada data untuk filter yang dipilih.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- User Report Chart -->
+        <div class="col-span-12 lg:col-span-6">
+          <div class="card">
+            <div class="flex items-center gap-2 px-4 py-3 sm:px-5 min-h-[48px]">
+              <h2 class="text-sm font-medium tracking-wide text-slate-700 dark:text-navy-100 sm:text-base">
+                Laporan Penjahit / Tahun
+              </h2>
+              <div class="ml-auto flex items-center gap-1.5">
+                <button
+                  class="inline-flex h-9 w-9 items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-navy-600"
+                  aria-label="Export Excel"
+                  (click)="exportChart('damages_per_tailor')"
+                  title="Export Excel">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                      viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M7.5 10.5L12 15m0 0l4.5-4.5M12 15V3" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="w-full px-4 pb-4 sm:px-5 sm:pb-5 min-h-[200px] flex flex-col">
+              <canvas id="userReportChart" class="w-full hidden"></canvas>
+              <div id="userReportChart-loading"
+                   class="mx-auto my-8 spinner is-elastic h-7 w-7 animate-spin rounded-full border-[3px] border-primary border-r-transparent dark:border-accent dark:border-r-transparent">
+              </div>
+              <div id="userReportChart-empty"
+                  class="hidden flex-1 flex items-center justify-center text-center text-slate-500 dark:text-navy-200">
+                Belum ada data untuk filter yang dipilih.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Summary by Category Chart -->
+        <div class="col-span-12 lg:col-span-8">
+          <div class="card">
+            <!-- Header + Filters -->
+            <div class="flex items-center gap-2 px-4 py-3 sm:px-5 min-h-[48px]">
+              <h2 class="text-sm font-medium tracking-wide text-slate-700 dark:text-navy-100 sm:text-base">
+                Rata-rata Waktu per Kategori
+              </h2>
+              <div class="ml-auto flex items-center gap-1.5">
+                <button
+                  class="inline-flex h-9 w-9 items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-navy-600"
+                  aria-label="Export Excel"
+                  (click)="exportChart('durations_per_category')"
+                  title="Export Excel">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                      viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M7.5 10.5L12 15m0 0l4.5-4.5M12 15V3" />
+                  </svg>
+                </button>
+              </div>
+              <div class="flex gap-2 w-full sm:w-auto">
+                <!-- Filter Month -->
+                <div class="relative w-full sm:w-28">
+                  <select
+                    class="appearance-none w-full h-9 rounded-lg border border-slate-300 bg-white px-3 pr-10 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-navy-600 dark:bg-navy-700 dark:text-white"
+                    [(ngModel)]="selectedMonth"
+                    (change)="onFilterChange()"
+                  >
+                    <option *ngFor="let m of months" [value]="m.value">{{ m.name }}</option>
+                  </select>
+                </div>
+
+                <!-- Filter Difficulty -->
+                <div class="relative w-full sm:w-28">
+                  <select
+                    class="appearance-none w-full h-9 rounded-lg border border-slate-300 bg-white px-3 pr-10 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-navy-600 dark:bg-navy-700 dark:text-white"
+                    [(ngModel)]="selectedDifficulty"
+                    (change)="onFilterChange()"
+                  >
+                    <option value="">Semua</option>
+                    <option value="easy">Mudah</option>
+                    <option value="medium">Sedang</option>
+                    <option value="hard">Sulit</option>
+                    <option value="none">Tidak Ditentukan</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- GANTI di kedua chart -->
+            <div class="w-full px-4 pb-4 sm:px-5 sm:pb-5 relative h-[400px] flex flex-col">
+              <canvas id="summaryByCategoryChart" class="absolute inset-0 w-full h-full hidden"></canvas>
+
+              <div id="summaryByCategoryChart-loading"
+                  class="absolute inset-0 flex items-center justify-center">
+                <div class="spinner is-elastic h-7 w-7 animate-spin rounded-full border-[3px] border-primary border-r-transparent dark:border-accent dark:border-r-transparent"></div>
+              </div>
+
+              <div id="summaryByCategoryChart-empty"
+                  class="absolute inset-0 hidden flex items-center justify-center text-center text-slate-500 dark:text-navy-200">
+                Belum ada data untuk filter yang dipilih.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Foreman Report Chart -->
+        <div class="col-span-12 lg:col-span-4">
+          <div class="card">
+            <!-- Header & Filters -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 py-3 sm:px-5 gap-2">
+              <h2 class="text-sm font-semibold text-slate-700 dark:text-navy-100 sm:text-base">
+                Kerusakan Mesin
+              </h2>
+
+              <div class="flex gap-2 w-full sm:w-auto">
+                <!-- Select Foreman -->
+                <select
+                  class="w-full sm:w-32 h-9 rounded-lg border border-slate-300 bg-white px-3 text-sm shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-navy-600 dark:bg-navy-700 dark:text-white"
+                  [(ngModel)]="selectedForemanIdFC"
+                  (change)="onForemanFilterChange()"
+                >
+                  <option value="" disabled selected>Foreman</option>
+                  <option *ngFor="let foreman of foremanList" [value]="foreman.id">{{ foreman.name }}</option>
+                </select>
+
+                <!-- Select Month -->
+                <select
+                  class="w-full sm:w-28 h-9 rounded-lg border border-slate-300 bg-white px-3 text-sm shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-navy-600 dark:bg-navy-700 dark:text-white"
+                  [(ngModel)]="selectedMonthFC"
+                  (change)="onForemanFilterChange()"
+                >
+                  <option *ngFor="let m of months" [value]="m.value">{{ m.name }}</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Chart -->
+            <div class="w-full px-4 pb-4 sm:px-5 sm:pb-5 h-[400px] flex flex-col">
+              <canvas id="foremanCategoryChart" class="w-full hidden"></canvas>
+
+              <div id="foremanCategoryChart-loading"
+                class="mx-auto my-auto spinner is-elastic h-7 w-7 animate-spin rounded-full border-[3px] border-primary border-r-transparent dark:border-accent dark:border-r-transparent">
+              </div>
+
+              <div id="foremanCategoryChart-empty"
+                class="hidden flex-1 flex items-center justify-center text-center text-slate-500 dark:text-navy-200">
+                Belum ada data untuk filter yang dipilih.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-span-12 lg:col-span-12">
+          <div class="card">
+            <div class="flex items-center gap-2 px-4 py-3 sm:px-5 min-h-[48px]">
+              <h2 class="text-sm font-medium tracking-wide text-slate-700 dark:text-navy-100 sm:text-base">
+                Trend Suku Cadang / Tahun (Top Jenis)
+              </h2>
+              <div class="ml-auto flex items-center gap-1.5">
+                <button
+                  class="inline-flex h-9 w-9 items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-navy-600"
+                  aria-label="Export Excel"
+                  (click)="exportChart('spareparts_per_machine')"
+                  title="Export Excel">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                      viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M7.5 10.5L12 15m0 0l4.5-4.5M12 15V3" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="w-full px-4 pb-4 sm:px-5 sm:pb-5 h-[480px] flex flex-col">
+              <canvas id="sparepartTrendChart" class="w-full hidden"></canvas>
+
+              <!-- loading -->
+              <div id="sparepartTrendChart-loading"
+                  class="mx-auto my-8 spinner is-elastic h-7 w-7 animate-spin rounded-full border-[3px] border-primary border-r-transparent dark:border-accent dark:border-r-transparent">
+              </div>
+
+              <div id="sparepartTrendChart-empty"
+                  class="hidden flex-1 flex items-center justify-center text-center text-slate-500 dark:text-navy-200">
+                Belum ada data untuk filter yang dipilih.
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Queue Damage Machine Section -->
+      <div *ngIf="roleUser !== 'technician'" class="col-span-12 lg:col-span-8">
+        <div class="flex h-8 items-center justify-between mb-3">
+          <h2 class="text-sm font-medium tracking-wide text-slate-700 dark:text-navy-100 sm:text-base">
+            Antrian Mesin Rusak
+          </h2>
+          <a [routerLink]="['/report']"
+             class="border-b border-dotted border-current pb-0.5 text-xs font-medium text-primary outline-none transition-colors duration-300 hover:text-primary/70 focus:text-primary/70 dark:text-accent-light dark:hover:text-accent-light/70 dark:focus:text-accent-light/70 sm:text-xs+">
+            Lihat Semua
+          </a>
+        </div>
+
+        <!-- Queue Cards Grid -->
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 sm:gap-4" [ngClass]="{'hidden': isLoadingLoad}">
+          <div *ngFor="let item of listQueueDamages" class="card flex-row overflow-hidden">
+            <div class="h-full w-1 bg-gradient-to-b from-blue-500 to-purple-600"></div>
+            <div class="flex flex-1 flex-col justify-between p-3 sm:p-4">
+              <div>
+                <!-- Machine Icon -->
+                <svg class="h-10 w-10 rounded-lg object-cover object-center sm:h-12 sm:w-12"
+                     viewBox="0 0 50 50"
+                     xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#a152f5;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#8cb4f0;stop-opacity:1" />
+                    </linearGradient>
+                  </defs>
+                  <g fill="url(#grad1)">
+                    <path d="M28 3L28 4L26 4L26 12L15 12L15 10L13 10L13 12L10 12C7.28125 12 5 14.171875 5 17C5 18.300781 5.25 20.75 5.5 22.96875C5.75 25.1875 6 27.125 6 27.125L6.125 28L10 28L10 30L9 30L9 32L13 32L13 30L12 30L12 28L15.78125 28L16.59375 24.75C16.707031 24.300781 17.101563 24 17.5625 24L22.84375 24C23.8125 24 24.652344 24.664063 24.8125 25.59375C24.90625 26.136719 25 27.597656 25 28.5625C25 29.527344 24.910156 30.839844 24.8125 31.40625C24.652344 32.335938 23.8125 33 22.84375 33L8 33C5.25 33 3 35.25 3 38L3 43C3 44.644531 4.355469 46 6 46L8 46L8 47L13 47L13 46L33 46L33 47L38 47L38 46L40 46C41.644531 46 43 44.644531 43 43L43 24L47 24L47 15L42.5625 15C41.785156 13.242188 40.035156 12 38 12L36 12L36 8L34 8L34 12L32 12L32 4L30 4L30 3 Z M 28 6L30 6L30 12L28 12 Z M 10 14L11 14L11 23L13 23L13 14L38 14C39.667969 14 41 15.332031 41 17L41 43C41 43.566406 40.566406 44 40 44L6 44C5.433594 44 5 43.566406 5 43L5 38C5 36.332031 6.332031 35 8 35L22.84375 35C24.753906 35 26.449219 33.65625 26.78125 31.75C26.925781 30.929688 27 29.640625 27 28.5625C27 27.484375 26.929688 26.09375 26.78125 25.25C26.449219 23.34375 24.753906 22 22.84375 22L17.5625 22C16.191406 22 14.988281 22.953125 14.65625 24.28125L14.21875 26L7.90625 26C7.832031 25.417969 7.695313 24.484375 7.5 22.75C7.25 20.546875 7 18.011719 7 17C7 15.203125 8.300781 14 10 14 Z M 34 17C32.355469 17 31 18.355469 31 20C31 21.644531 32.355469 23 34 23C35.644531 23 37 21.644531 37 20C37 18.355469 35.644531 17 34 17 Z M 43 17L45 17L45 22L43 22 Z M 34 19C34.5625 19 35 19.4375 35 20C35 20.5625 34.5625 21 34 21C33.4375 21 33 20.5625 33 20C33 19.4375 33.4375 19 34 19 Z M 34 27C31.25 27 29 29.25 29 32C29 34.75 31.25 37 34 37C36.75 37 39 34.75 39 32C39 29.25 36.75 27 34 27 Z M 34 29C35.667969 29 37 30.332031 37 32C37 33.667969 35.667969 35 34 35C32.332031 35 31 33.667969 31 32C31 30.332031 32.332031 29 34 29Z" />
+                  </g>
+                </svg>
+
+                <!-- Card Content -->
+                <h3 class="mt-2 text-sm font-medium text-slate-700 line-clamp-2 dark:text-navy-100 sm:mt-3 sm:text-base">
+                  {{ item.title }}
+                </h3>
+                <p class="text-xs text-slate-500 dark:text-navy-300 mt-1">{{ formatDate(item.created_at) }}</p>
+
+                <!-- Tags -->
+                <div class="mt-2 flex flex-wrap gap-1 sm:gap-1.5">
+                  <span class="tag bg-primary py-0.5 px-1.5 text-xs text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+                    {{ getStatusIN(item.status) }}
+                  </span>
+                  <span *ngIf="item.is_priority" class="tag bg-danger py-0.5 px-1.5 text-xs text-white">
+                    Prioritas
+                  </span>
+                </div>
+              </div>
+              <!-- Action Button -->
+              <div class="mt-4 flex justify-end sm:mt-6">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="progress-save"
+             [ngClass]="{'hidden': !isLoadingLoad}"
+             class="mx-auto my-8 spinner is-elastic h-7 w-7 animate-spin rounded-full border-[3px] border-primary border-r-transparent dark:border-accent dark:border-r-transparent">
+        </div>
+      </div>
+
+      <!-- Technician Section -->
+      <div *ngIf="roleUser !== 'technician'" class="col-span-12 lg:col-span-4">
+        <div class="flex h-8 items-center justify-between mb-3">
+          <h2 class="text-sm font-medium tracking-wide text-slate-700 dark:text-navy-100 sm:text-base">
+            Teknisi
+          </h2>
+          <a [routerLink]="['/user']"
+             class="border-b border-dotted border-current pb-0.5 text-xs font-medium text-primary outline-none transition-colors duration-300 hover:text-primary/70 focus:text-primary/70 dark:text-accent-light dark:hover:text-accent-light/70 dark:focus:text-accent-light/70 sm:text-xs+">
+            Lihat Semua
+          </a>
+        </div>
+
+        <!-- Technician Cards -->
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1 sm:gap-4">
+          <div class="card p-3 sm:p-4" *ngFor="let item of listTechnicians">
+            <div class="flex items-center justify-between space-x-2">
+              <div class="flex items-center space-x-3">
+                <div class="avatar h-9 w-9 sm:h-10 sm:w-10">
+                  <img class="rounded-full"
+                       src="../../../assets/images/pp_technician.jpg"
+                       alt="avatar" />
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-slate-700 line-clamp-1 dark:text-navy-100">
+                    {{ item.name }}
+                  </p>
+                  <p class="mt-0.5 text-xs text-slate-400 line-clamp-1 dark:text-navy-300">
+                    {{ getRoleIN(item.role) }}
+                  </p>
+                </div>
+              </div>
+
+              <!-- WhatsApp Contact Button -->
+              <div class="relative cursor-pointer flex-shrink-0">
+                <a href="https://wa.me/{{ formatNumberWa(item.phone_number) }}"
+                   class="btn h-8 w-8 rounded-full bg-slate-150 p-0 font-medium text-slate-700 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-100 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                       class="h-4 w-4"
+                       fill="none"
+                       viewBox="0 0 24 24"
+                       stroke="currentColor">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <path d="M6.014 8.00613C6.12827 7.1024 7.30277 5.87414 8.23488 6.01043L8.23339 6.00894C9.14051 6.18132 9.85859 7.74261 10.2635 8.44465C10.5504 8.95402 10.3641 9.4701 10.0965 9.68787C9.7355 9.97883 9.17099 10.3803 9.28943 10.7834C9.5 11.5 12 14 13.2296 14.7107C13.695 14.9797 14.0325 14.2702 14.3207 13.9067C14.5301 13.6271 15.0466 13.46 15.5548 13.736C16.3138 14.178 17.0288 14.6917 17.69 15.27C18.0202 15.546 18.0977 15.9539 17.8689 16.385C17.4659 17.1443 16.3003 18.1456 15.4542 17.9421C13.9764 17.5868 8 15.27 6.08033 8.55801C5.97237 8.24048 5.99955 8.12044 6.014 8.00613Z"
+                            fill="currentColor"
+                            stroke-width="0" />
+                      <path fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M12 23C10.7764 23 10.0994 22.8687 9 22.5L6.89443 23.5528C5.56462 24.2177 4 23.2507 4 21.7639V19.5C1.84655 17.492 1 15.1767 1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23ZM6 18.6303L5.36395 18.0372C3.69087 16.4772 3 14.7331 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C11.0143 21 10.552 20.911 9.63595 20.6038L8.84847 20.3397L6 21.7639V18.6303Z"
+                            fill="currentColor"
+                            stroke-width="0" />
+                    </g>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technician Dashboard Section -->
+      <div *ngIf="roleUser === 'technician'" class="col-span-12">
+        <!-- Current Report Card -->
+        <div *ngIf="currentReport" class="col-span-12 mb-4">
+          <div class="card p-4 sm:p-5">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-sm font-medium tracking-wide text-slate-700 dark:text-navy-100 sm:text-base">
+                Laporan Sedang Diproses
+              </h2>
+            </div>
+
+            <div class="space-y-4">
+              <!-- Title -->
+              <div class="text-base font-semibold text-slate-800 dark:text-navy-100 sm:text-lg">
+                Mesin: {{ currentReport?.machine?.nim || currentReport?.machine?.machine || '-' }}
+              </div>
+
+              <!-- Description Badges -->
+              <div class="flex flex-wrap gap-2">
+                <div class="badge rounded-full border border-primary text-primary dark:border-accent-light dark:text-accent-light text-xs">
+                  Judul: {{ currentReport.title }}
+                </div>
+                <div class="badge rounded-full border border-secondary text-secondary dark:border-secondary-light dark:text-secondary-light text-xs">
+                  Pelapor: {{ currentReport.user.name }}
+                </div>
+                <div class="badge rounded-full border border-success text-success text-xs">
+                  Tanggal: {{ formatDate(currentReport.created_at) }}
+                </div>
+                <div class="badge rounded-full border border-warning text-warning text-xs">
+                  Waktu: {{ formatTime(currentReport.created_at) }}
+                </div>
+                <div *ngIf="currentReport.is_priority" class="badge rounded-full border border-danger text-danger text-xs">
+                  Prioritas
+                </div>
+              </div>
+
+              <!-- Description Text (optional) -->
+              <div class="text-sm text-slate-600 dark:text-navy-200">
+                {{ currentReport.description || 'Tidak ada deskripsi yang diberikan.' }}
+              </div>
+
+              <!-- Action Button -->
+              <div class="pt-2">
+                <button
+                  class="btn bg-primary text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90 text-sm px-4 py-2"
+                  [routerLink]="['/repair', currentReport.id]"
+                >
+                  Perbarui Progres
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-span-12 mb-4" *ngIf="machinesOnHold?.length">
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="text-sm font-medium tracking-wide text-slate-700 dark:text-navy-100 sm:text-base">
+              Laporan Ditunda
+            </h2>
+          </div>
+
+          <div class="card">
+            <div class="max-w-full overflow-x-auto hidden md:block">
+              <div class="bg-white dark:bg-navy-800 rounded-lg shadow-md overflow-hidden">
+                <table class="w-full text-left">
+                  <thead>
+                    <tr class="bg-slate-50 dark:bg-navy-700 border-b border-slate-200 dark:border-navy-600">
+                      <th class="px-6 py-4 font-semibold text-slate-700 dark:text-navy-100">Mesin</th>
+                      <th class="px-6 py-4 font-semibold text-slate-700 dark:text-navy-100">Rincian</th>
+                      <th class="px-6 py-4 font-semibold text-slate-700 dark:text-navy-100">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let ar of machinesOnHold"
+                      [routerLink]="['/repair', ar.report?.id]"
+                      class="border-b border-slate-100 dark:border-navy-600 hover:bg-slate-50 dark:hover:bg-navy-700 transition-colors duration-200 cursor-pointer"
+                    >
+                      <td class="px-6 py-4">
+                        <div class="font-medium text-slate-900 dark:text-navy-100">
+                          NIM: {{ ar.report?.machine?.nim || '-' }}
+                        </div>
+                        <!-- <div class="text-xs text-slate-500 dark:text-navy-300">
+                          Durasi kerja: {{ ar.total_duration_readable || '00:00:00' }}
+                        </div> -->
+                      </td>
+
+                      <td class="px-6 py-4">
+                        <div class="flex flex-wrap gap-1">
+                          <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+                            {{ ar.report?.title || '-' }}
+                          </span>
+                          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                            Pelapor: {{ ar.report?.user?.name || '-' }}
+                          </span>
+                          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+                            Status: Ditunda
+                          </span>
+                        </div>
+                      </td>
+
+                      <td class="px-6 py-4">
+                        <div class="flex gap-2">
+                          <button
+                            class="btn bg-slate-150 text-slate-800 text-xs px-3 py-1.5 hover:bg-slate-200 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450"
+                            [routerLink]="['/repair', ar.report?.id]"
+                            (click)="$event.stopPropagation()"
+                          >
+                            Buka
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Mobile cards -->
+            <div class="md:hidden p-4 space-y-3">
+              <div *ngFor="let ar of machinesOnHold"
+                  class="bg-white dark:bg-navy-800 rounded-lg border border-slate-200 dark:border-navy-600 p-4">
+                <div class="flex items-center justify-between mb-2">
+                  <h3 class="text-base font-semibold text-slate-900 dark:text-navy-100">
+                    Mesin: {{ ar.report?.machine?.nim || '-' }}
+                  </h3>
+                  <span class="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+                    Ditunda
+                  </span>
+                </div>
+                <div class="text-sm text-slate-700 dark:text-navy-200 mb-2">
+                  {{ ar.report?.title || '-' }}
+                </div>
+                <!-- <div class="text-xs text-slate-500 dark:text-navy-300 mb-3">
+                  Durasi kerja: {{ ar.total_duration_readable || '00:00:00' }}
+                </div> -->
+                <div class="flex gap-2">
+                  <button
+                    class="btn bg-slate-150 text-slate-800 text-xs px-3 py-1.5 hover:bg-slate-200 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450"
+                    [routerLink]="['/repair', ar.report?.id]">
+                    Buka
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="text-sm font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100 sm:text-base">
+              Laporan Diminta
+            </h2>
+            <div class="flex items-center space-x-2">
+              <!-- Search Input -->
+              <div class="table-search-wrapper flex items-center flex-1 sm:flex-initial">
+                <label class="block flex-1 sm:flex-initial">
+                  <input
+                    class="table-search-input form-input w-full sm:w-0 h-10 bg-transparent px-3 sm:px-1 text-left sm:text-right transition-all duration-100 placeholder:text-slate-500 dark:placeholder:text-navy-200 dark:text-light border border-slate-300 dark:border-navy-600 rounded-lg sm:border-none"
+                    placeholder="Cari di sini..."
+                    [ngClass]="{'sm:w-0': !isSearchShow, 'sm:w-48': isSearchShow}"
+                    type="text"
+                    (keyup)="onSearch($event)"
+                  />
+                </label>
+                <button
+                  (click)="isSearchShow = !isSearchShow"
+                  class="hidden sm:flex items-center justify-center table-search-toggle btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25 dark:text-navy-100"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.5"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reports Table -->
+          <div class="card">
+            <!-- Desktop Table View -->
+            <div class="max-w-full overflow-x-auto hidden md:block">
+              <div class="bg-white dark:bg-navy-800 rounded-lg shadow-md overflow-hidden">
+                <table class="w-full text-left">
+                  <thead>
+                    <tr class="bg-slate-50 dark:bg-navy-700 border-b border-slate-200 dark:border-navy-600">
+                      <th class="px-6 py-4 font-semibold text-slate-700 dark:text-navy-100">
+                        Mesin
+                      </th>
+                      <th class="px-6 py-4 font-semibold text-slate-700 dark:text-navy-100">
+                        Rincian
+                      </th>
+                      <th class="px-6 py-4 font-semibold text-slate-700 dark:text-navy-100">
+                        Status
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      [routerLink]="['/repair', item.id]"
+                      [ngClass]="{'hidden':isLoadingLoad}"
+                      *ngFor="let item of listReports; let i = index"
+                      class="border-b border-slate-100 dark:border-navy-600 hover:bg-slate-50 dark:hover:bg-navy-700 transition-colors duration-200 cursor-pointer"
+                    >
+                      <td class="px-6 py-4">
+                       <div class="font-medium text-slate-900 dark:text-navy-100">
+                          NIM: {{ item.machine.nim }}
+                        </div>
+                        <div *ngIf="item.is_priority" class="inline-flex items-center px-2 py-1 mt-1 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+                          Prioritas
+                        </div>
+                      </td>
+                      <td class="px-6 py-4">
+                        <div class="flex flex-wrap gap-1">
+                          <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+                            {{ limit_length(item.title, 30) }}
+                          </span>
+                          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                            Pelapor: {{ item.user.name }}
+                          </span>
+                          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                            Tanggal: {{ formatDate(item.created_at) }}
+                          </span>
+                          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
+                            Waktu: {{ formatTime(item.created_at) }}
+                          </span>
+                        </div>
+                      </td>
+                      <td class="px-6 py-4">
+                        <span
+                          class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
+                          [ngClass]="{
+                            'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200': item.status === 'Completed',
+                            'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200': item.status === 'In Progress',
+                            'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200': item.status === 'Pending',
+                            'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200': !['Completed', 'In Progress', 'Pending'].includes(item.status)
+                          }"
+                        >
+                          {{ getStatusIN(item.status) }}
+                        </span>
+                      </td>
+                    </tr>
+
+                    <!-- Loading Row -->
+                    <tr [ngClass]="{'hidden':!isLoadingLoad}">
+                      <td colspan="3" class="px-6 py-8 text-center">
+                        <div class="flex justify-center items-center space-x-2">
+                          <div class="w-6 h-6 border-2 border-slate-300 border-t-slate-600 rounded-full animate-spin dark:border-navy-500 dark:border-t-navy-200"></div>
+                          <span class="text-slate-600 dark:text-navy-300">Memuat...</span>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr *ngIf="!isLoadingLoad && (!listReports || listReports.length === 0)">
+                      <td colspan="3" class="px-6 py-10">
+                        <div class="text-center text-slate-600 dark:text-navy-200">
+                          <div class="mx-auto mb-3 h-12 w-12 rounded-full border border-slate-300/60 dark:border-navy-600/60 flex items-center justify-center">
+                            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none">
+                              <path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                          </div>
+                          <div class="font-semibold">Tidak ada laporan</div>
+                          <div class="text-xs mt-1">Coba ubah kata kunci pencarian atau periksa kembali filter.</div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- Mobile Card View -->
+            <div class="md:hidden">
+              <!-- Loading State -->
+              <div [ngClass]="{'hidden': !isLoadingLoad}" class="flex justify-center py-8">
+                <div class="spinner is-elastic h-7 w-7 animate-spin rounded-full border-[3px] border-primary border-r-transparent dark:border-accent dark:border-r-transparent"></div>
+              </div>
+
+              <!-- Report Cards -->
+              <div class="space-y-3 p-4" [ngClass]="{'hidden': isLoadingLoad}">
+                <ng-container *ngIf="listReports && listReports.length > 0; else emptyMobile">
+                  <div
+                    *ngFor="let item of listReports; let i = index"
+                    [routerLink]="['/repair', item.id]"
+                    class="bg-white dark:bg-navy-800 rounded-lg border border-slate-200 dark:border-navy-600 p-4 cursor-pointer hover:shadow-md transition-shadow duration-200"
+                  >
+                    <!-- Mesin jadi header utama -->
+                    <div class="flex items-center justify-between mb-3">
+                      <h3 class="text-lg font-semibold text-slate-900 dark:text-navy-100 truncate pr-2">
+                        Mesin: {{ item.machine.nim }}
+                      </h3>
+                    </div>
+
+                    <!-- Report Details -->
+                    <div class="space-y-2">
+                      <div class="flex items-center space-x-2">
+                        <span class="text-xs font-medium text-slate-500 dark:text-navy-300 min-w-[60px]">Judul:</span>
+                        <span class="text-sm text-slate-700 dark:text-navy-200 px-2 py-1 bg-slate-100 dark:bg-navy-700 rounded text-purple-600 border border-purple-600/20">
+                          {{ limit_length(item.title, 50) }}
+                        </span>
+                      </div>
+
+                      <div class="flex items-center space-x-2">
+                        <span class="text-xs font-medium text-slate-500 dark:text-navy-300 min-w-[60px]">Pelapor:</span>
+                        <span class="text-sm text-slate-700 dark:text-navy-200 px-2 py-1 bg-slate-100 dark:bg-navy-700 rounded text-blue-600 border border-blue-600/20">
+                          {{ item.user.name }}
+                        </span>
+                      </div>
+
+                      <div class="flex items-center space-x-2">
+                        <span class="text-xs font-medium text-slate-500 dark:text-navy-300 min-w-[60px]">Tanggal:</span>
+                        <span class="text-sm text-slate-700 dark:text-navy-200 px-2 py-1 bg-slate-100 dark:bg-navy-700 rounded text-green-600 border border-green-600/20">
+                          {{ formatDate(item.created_at) }}
+                        </span>
+                      </div>
+
+                      <div class="flex items-center space-x-2">
+                        <span class="text-xs font-medium text-slate-500 dark:text-navy-300 min-w-[60px]">Waktu:</span>
+                        <span class="text-sm text-slate-700 dark:text-navy-200 px-2 py-1 bg-slate-100 dark:bg-navy-700 rounded text-yellow-600 border border-yellow-600/20">
+                          {{ formatTime(item.created_at) }}
+                        </span>
+                      </div>
+
+                      <div *ngIf="item.is_priority" class="flex items-center space-x-2">
+                        <span class="text-xs font-medium text-slate-500 dark:text-navy-300 min-w-[60px]">Prioritas:</span>
+                        <span class="text-sm text-slate-700 dark:text-navy-200 px-2 py-1 bg-slate-100 dark:bg-navy-700 rounded text-red-600 border border-red-600/20">
+                          High Priority
+                        </span>
+                      </div>
+                    </div>
+                    <div class="flex justify-end mt-3">
+                      <svg class="h-4 w-4 text-slate-400 dark:text-navy-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
+                </ng-container>
+
+                <ng-template #emptyMobile>
+                  <div class="bg-white dark:bg-navy-800 rounded-lg border border-slate-200 dark:border-navy-600 p-6 text-center text-slate-600 dark:text-navy-200">
+                    <div class="mx-auto mb-3 h-12 w-12 rounded-full border border-slate-300/60 dark:border-navy-600/60 flex items-center justify-center">
+                      <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none">
+                        <path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      </svg>
+                    </div>
+                    <div class="font-semibold">Belum ada laporan</div>
+                    <div class="text-xs mt-1">Coba ubah pencarian.</div>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pagination -->
+          <div class="flex flex-col space-y-4 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0 sm:px-5 bg-white dark:bg-navy-800 rounded-lg mt-4 border border-slate-200 dark:border-navy-600">
+            <!-- Pagination Controls -->
+            <div class="flex justify-center sm:justify-start">
+              <ul class="pagination flex items-center space-x-1">
+                <li class="rounded-l-lg bg-slate-150 dark:bg-navy-500">
+                  <a
+                    (click)="setPage(selectedPage - 1)"
+                    class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors hover:bg-slate-300 dark:text-navy-200 dark:hover:bg-navy-450 cursor-pointer"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15 19l-7-7 7-7"
+                      />
+                    </svg>
+                  </a>
+                </li>
+                <li class="bg-slate-150 dark:bg-navy-500"
+                  *ngFor="let page of visiblePages; let i = index">
+                  <button
+                    (click)="setPage(page)"
+                    [ngClass]="{'flex h-8 min-w-[2rem] items-center justify-center rounded-lg leading-tight px-3 transition-colors text-sm':true,
+                                'hover:bg-slate-300 focus:bg-slate-300 active:bg-slate-300/80 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90 text-slate-700 dark:text-navy-200': page !== selectedPage,
+                                'bg-primary text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90': page === selectedPage}">
+                    {{ page }}
+                  </button>
+                </li>
+                <li class="rounded-r-lg bg-slate-150 dark:bg-navy-500">
+                  <a
+                    (click)="setPage(selectedPage + 1)"
+                    class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors hover:bg-slate-300 dark:text-navy-200 dark:hover:bg-navy-450 cursor-pointer"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Entry Count -->
+            <div class="text-xs text-center sm:text-right text-slate-600 dark:text-navy-300">
+              {{ firstIndEntry }} - {{ lastIndEntry }} dari {{ totalDataReports }} entri
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</ion-content>

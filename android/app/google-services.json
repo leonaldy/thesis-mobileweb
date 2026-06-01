@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "207440928019",
+    "project_id": "champiro-ee5b2",
+    "storage_bucket": "champiro-ee5b2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:207440928019:android:f99ee58d332dda97238ee6",
+        "android_client_info": {
+          "package_name": "com.ptxyz.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHtpS8LdLwMXFJsNjXT8XsS3u2BjdTo34"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,7 @@
+<ion-content [fullscreen]="true" class="bg-slate-50 dark:bg-navy-900">
+  <div class="h-full" [ngSwitch]="code">
+    <app-notfound-message *ngSwitchCase="'404'"></app-notfound-message>
+    <app-forbidden-message *ngSwitchCase="'403'"></app-forbidden-message>
+    <app-servererror-message *ngSwitchCase="'500'"></app-servererror-message>
+  </div>
+</ion-content>

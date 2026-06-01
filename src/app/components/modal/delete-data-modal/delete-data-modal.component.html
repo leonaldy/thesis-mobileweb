@@ -1,0 +1,27 @@
+<div
+  id="modal3" class="show modal shift-up fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden" role="dialog">
+  <div class="modal-content scrollbar-sm relative flex flex-col overflow-y-auto rounded-lg bg-white pt-10 pb-4 text-center dark:bg-navy-700" style="width: 100%; height:100%">
+    <svg xmlns="http://www.w3.org/2000/svg" class="inline h-28 w-28 shrink-0 text-danger  mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+      <g id="SVGRepo_iconCarrier"> <path d="M16 8L8 16M8.00001 8L16 16M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#ff0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </g>
+    </svg>
+
+    <div class="mt-4 px-4 sm:px-12">
+      <h3 class="text-lg text-slate-800 dark:text-navy-50">
+        Delete Confirmation
+      </h3>
+      <p class="mt-1 text-slate-500 dark:text-navy-200">{{ message }} </p>
+    </div>
+    <div class="my-4 mt-16 h-px bg-slate-200 dark:bg-navy-500"></div>
+
+    <div class="space-x-3 my-auto">
+      <button (click)="cancelDelete()" data-close-modal class="btn min-w-[7rem] rounded-full border border-slate-300 font-medium text-slate-800 hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-450 dark:text-navy-50 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90">
+        Cancel
+      </button>
+      <button (click)="confirmDelete()" data-close-modal class="btn min-w-[7rem] rounded-full bg-danger font-medium text-white hover:bg-danger-light dark:bg-danger dark:hover:bg-danger-light">
+        Delete
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+{
+  "name": "PT XYZ",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,9 @@
+<ion-content [fullscreen]="true" class="bg-slate-50 dark:bg-navy-900">
+  <main class="main-content px-[var(--margin-x)] pb-8" [ngSwitch]="table">
+    <app-machine-form *ngSwitchCase="'machine'" [id]="id"></app-machine-form>
+    <app-user-form *ngSwitchCase="'user'" [id]="id"></app-user-form>
+    <app-report-form *ngSwitchCase="'report'" [id]="id"></app-report-form>
+    <app-sparepart-form *ngSwitchCase="'sparepart'" [id]="id"></app-sparepart-form>
+    <app-category-form *ngSwitchCase="'category'" [id]="id"></app-category-form>
+  </main>
+</ion-content>

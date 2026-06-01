@@ -1,0 +1,83 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import url(assets/css/app.css);
+@import url(assets/css/components/popper.css);
+
+
+
+/* Optional CSS utils that can be commented out */
+// @import "@ionic/angular/css/padding.css";
+// @import "@ionic/angular/css/float-elements.css";
+// @import "@ionic/angular/css/text-alignment.css";
+// @import "@ionic/angular/css/text-transformation.css";
+// @import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+@import "@ionic/angular/css/palettes/dark.system.css";
+
+
+.ng-dropdown-panel {
+  background: #fff !important;
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 12px 28px rgba(0,0,0,.15);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items { max-height: 320px; }
+.ng-dropdown-panel .ng-option { padding: 10px 12px; }
+.ng-dropdown-panel .ng-option.ng-option-marked { background: rgba(59,130,246,.10); }
+.ng-dropdown-panel .ng-option.ng-option-selected { font-weight: 600; }
+
+/* === DARK via system theme === */
+@media (prefers-color-scheme: dark) {
+  .ng-dropdown-panel {
+    background: #0f172a !important;
+    border-color: rgba(148,163,184,.18);
+    color: #e2e8f0;
+    box-shadow: 0 12px 28px rgba(0,0,0,.4);
+  }
+  .ng-dropdown-panel .ng-dropdown-header,
+  .ng-dropdown-panel .ng-dropdown-footer {
+    background: #0f172a !important;
+    color: #e2e8f0;
+  }
+  .ng-dropdown-panel .ng-input input {
+    background: #0f172a !important;
+    color: #e2e8f0 !important;
+    border: none;
+  }
+  .ng-dropdown-panel .ng-option { color: #e2e8f0; }
+  .ng-dropdown-panel .ng-option.ng-option-marked { background: rgba(2,132,199,.16) !important; }
+}

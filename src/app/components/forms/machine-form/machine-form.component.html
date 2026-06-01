@@ -1,0 +1,139 @@
+<div class="flex items-center space-x-4 py-5 lg:py-6">
+  <!-- <h2 class="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">
+    Add Form
+  </h2> -->
+</div>
+
+<div class="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
+  <div class="col-span-12 grid lg:col-span-8">
+    <div class="card">
+      <div
+        class="border-b border-slate-200 p-4 dark:border-navy-500 sm:px-5"
+      >
+        <div class="flex items-center space-x-2">
+          <div class="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 p-1 text-primary dark:bg-accent-light/10 dark:text-accent-light">
+            <svg class="h-12 w-12 rounded-lg object-cover object-center" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#a152f5;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#8cb4f0;stop-opacity:1" />
+                </linearGradient>x`
+              </defs>
+              <g fill="url(#grad1)">
+                <path d="M28 3L28 4L26 4L26 12L15 12L15 10L13 10L13 12L10 12C7.28125 12 5 14.171875 5 17C5 18.300781 5.25 20.75 5.5 22.96875C5.75 25.1875 6 27.125 6 27.125L6.125 28L10 28L10 30L9 30L9 32L13 32L13 30L12 30L12 28L15.78125 28L16.59375 24.75C16.707031 24.300781 17.101563 24 17.5625 24L22.84375 24C23.8125 24 24.652344 24.664063 24.8125 25.59375C24.90625 26.136719 25 27.597656 25 28.5625C25 29.527344 24.910156 30.839844 24.8125 31.40625C24.652344 32.335938 23.8125 33 22.84375 33L8 33C5.25 33 3 35.25 3 38L3 43C3 44.644531 4.355469 46 6 46L8 46L8 47L13 47L13 46L33 46L33 47L38 47L38 46L40 46C41.644531 46 43 44.644531 43 43L43 24L47 24L47 15L42.5625 15C41.785156 13.242188 40.035156 12 38 12L36 12L36 8L34 8L34 12L32 12L32 4L30 4L30 3 Z M 28 6L30 6L30 12L28 12 Z M 10 14L11 14L11 23L13 23L13 14L38 14C39.667969 14 41 15.332031 41 17L41 43C41 43.566406 40.566406 44 40 44L6 44C5.433594 44 5 43.566406 5 43L5 38C5 36.332031 6.332031 35 8 35L22.84375 35C24.753906 35 26.449219 33.65625 26.78125 31.75C26.925781 30.929688 27 29.640625 27 28.5625C27 27.484375 26.929688 26.09375 26.78125 25.25C26.449219 23.34375 24.753906 22 22.84375 22L17.5625 22C16.191406 22 14.988281 22.953125 14.65625 24.28125L14.21875 26L7.90625 26C7.832031 25.417969 7.695313 24.484375 7.5 22.75C7.25 20.546875 7 18.011719 7 17C7 15.203125 8.300781 14 10 14 Z M 34 17C32.355469 17 31 18.355469 31 20C31 21.644531 32.355469 23 34 23C35.644531 23 37 21.644531 37 20C37 18.355469 35.644531 17 34 17 Z M 43 17L45 17L45 22L43 22 Z M 34 19C34.5625 19 35 19.4375 35 20C35 20.5625 34.5625 21 34 21C33.4375 21 33 20.5625 33 20C33 19.4375 33.4375 19 34 19 Z M 34 27C31.25 27 29 29.25 29 32C29 34.75 31.25 37 34 37C36.75 37 39 34.75 39 32C39 29.25 36.75 27 34 27 Z M 34 29C35.667969 29 37 30.332031 37 32C37 33.667969 35.667969 35 34 35C32.332031 35 31 33.667969 31 32C31 30.332031 32.332031 29 34 29Z" />
+              </g>
+            </svg>
+          </div>
+          <h4 class="text-lg font-medium text-slate-700 dark:text-navy-100">
+            Mesin
+          </h4>
+        </div>
+      </div>
+      <div class="space-y-4 p-4 sm:p-5">
+        <!-- Informasi Penjahit (Read Only) -->
+        <div
+          *ngIf="method === 'update' && assignedTailor"
+          class="flex items-start space-x-3 rounded-lg border border-emerald-200 bg-emerald-50 p-4 dark:border-emerald-700 dark:bg-emerald-900/20"
+        >
+          <div class="mt-0.5 flex h-9 w-9 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-800/80 dark:text-emerald-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19h5l-1.405-1.405A2.032 2.032 0 0118 16.158V11a6 6 0 10-12 0v5.159c0 .538-.214 1.055-.595 1.436L4 19h5m6 0a3 3 0 11-6 0m6 0H9" />
+            </svg>
+          </div>
+          <div class="space-y-1">
+            <div class="text-sm font-semibold text-slate-800 dark:text-navy-50">Informasi Penjahit</div>
+            <div class="text-sm text-slate-700 dark:text-navy-100">Mesin ini sedang dipegang oleh <span class="font-semibold text-emerald-700 dark:text-emerald-200">{{ assignedTailor }}</span>.</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+
+          <!-- NIM -->
+          <label class="block">
+            <span>NIM</span>
+            <input
+              [(ngModel)]="nim"
+              required
+              class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+              placeholder="Masukkan NIM mesin"
+              type="text"
+              inputmode="text"
+              pattern="[0-9\-]*"
+              (keypress)="allowOnlyDigitsAndDash($event)"
+            />
+          </label>
+
+          <!-- Merk Mesin -->
+          <label class="block">
+            <span>Merk Mesin</span>
+            <input
+              [(ngModel)]="machine_merk"
+              required
+              class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+              placeholder="Masukkan merk mesin"
+              type="text"
+            />
+          </label>
+
+          <!-- Jenis Mesin -->
+          <label class="block">
+            <span>Tipe Mesin</span>
+            <input
+              [(ngModel)]="machine_type"
+              required
+              class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+              placeholder="Masukkan tipe mesin"
+              type="text"
+            />
+          </label>
+
+          <!-- Tanggal Pembelian -->
+          <label class="block">
+            <span>Tanggal Pembelian</span>
+            <input
+              [(ngModel)]="purchase_date"
+              required
+              class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+              type="date"
+            />
+          </label>
+        </div>
+
+        <!-- Function -->
+        <label class="block">
+          <span>Fungsi</span>
+          <textarea
+            [(ngModel)]="function"
+            required
+            rows="4"
+            placeholder="Masukkan fungsi mesin"
+            class="form-textarea mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent p-2.5 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+          ></textarea>
+        </label>
+
+        <!-- Error Alert -->
+        <div class="alert flex overflow-hidden rounded-lg bg-danger/10 text-danger dark:bg-danger/15" [ngClass]="{'hidden':error_message===''}">
+          <div class="flex flex-1 items-center space-x-3 p-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            <div class="flex-1">{{ error_message }}</div>
+          </div>
+          <div class="w-1.5 bg-danger"></div>
+        </div>
+        <div class="flex justify-end">
+          <div id="button-group-save" class="space-x-2 pt-4">
+            <button (click)="backBtn()" class="btn space-x-2 bg-slate-150 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
+              Batal
+            </button>
+            <button (click)="save()" class="btn space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+              Simpan
+            </button>
+          </div>
+          <div id="progress-save" class="hidden spinner is-elastic h-7 w-7 animate-spin rounded-full border-[3px] border-primary border-r-transparent dark:border-accent dark:border-r-transparent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

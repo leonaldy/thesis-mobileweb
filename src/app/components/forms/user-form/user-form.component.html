@@ -1,0 +1,569 @@
+<div class="flex items-center space-x-4 py-5 lg:py-6">
+  <!-- <h2 class="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">
+    Add Form
+  </h2> -->
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
+  <!-- User Form -->
+  <div class="col-span-1 lg:col-span-6">
+    <div class="card">
+      <div class="border-b border-slate-200 p-4 dark:border-navy-500 sm:px-5">
+        <div class="flex items-center space-x-2">
+          <div class="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 p-1 text-primary dark:bg-accent-light/10 dark:text-accent-light">
+            <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#a152f5; stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#8cb4f0; stop-opacity:1" />
+                </linearGradient>
+                <filter id="filter0_d_15_82" x="2.55444" y="3.5" width="18.8911" height="19" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                  <feOffset dy="1"/>
+                  <feGaussianBlur stdDeviation="0.5"/>
+                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_15_82"/>
+                  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_15_82" result="shape"/>
+                </filter>
+                <clipPath id="clip0_15_82">
+                  <rect width="24" height="24" fill="white"/>
+                </clipPath>
+              </defs>
+              <g clip-path="url(#clip0_15_82)">
+                <g filter="url(#filter0_d_15_82)">
+                  <path d="M14.3365 12.3466L14.0765 11.9195C13.9082 12.022 13.8158 12.2137 13.8405 12.4092C13.8651 12.6046 14.0022 12.7674 14.1907 12.8249L14.3365 12.3466ZM9.6634 12.3466L9.80923 12.8249C9.99769 12.7674 10.1348 12.6046 10.1595 12.4092C10.1841 12.2137 10.0917 12.022 9.92339 11.9195L9.6634 12.3466ZM4.06161 19.002L3.56544 18.9402L4.06161 19.002ZM19.9383 19.002L20.4345 18.9402L19.9383 19.002ZM16 8.5C16 9.94799 15.2309 11.2168 14.0765 11.9195L14.5965 12.7737C16.0365 11.8971 17 10.3113 17 8.5H16ZM12 4.5C14.2091 4.5 16 6.29086 16 8.5H17C17 5.73858 14.7614 3.5 12 3.5V4.5ZM7.99996 8.5C7.99996 6.29086 9.79082 4.5 12 4.5V3.5C9.23854 3.5 6.99996 5.73858 6.99996 8.5H7.99996ZM9.92339 11.9195C8.76904 11.2168 7.99996 9.948 7.99996 8.5H6.99996C6.99996 10.3113 7.96342 11.8971 9.40342 12.7737L9.92339 11.9195ZM9.51758 11.8683C6.36083 12.8309 3.98356 15.5804 3.56544 18.9402L4.55778 19.0637C4.92638 16.1018 7.02381 13.6742 9.80923 12.8249L9.51758 11.8683ZM3.56544 18.9402C3.45493 19.8282 4.19055 20.5 4.99996 20.5V19.5C4.70481 19.5 4.53188 19.2719 4.55778 19.0637L3.56544 18.9402ZM4.99996 20.5H19V19.5H4.99996V20.5ZM19 20.5C19.8094 20.5 20.545 19.8282 20.4345 18.9402L19.4421 19.0637C19.468 19.2719 19.2951 19.5 19 19.5V20.5ZM20.4345 18.9402C20.0164 15.5804 17.6391 12.8309 14.4823 11.8683L14.1907 12.8249C16.9761 13.6742 19.0735 16.1018 19.4421 19.0637L20.4345 18.9402Z" fill="url(#grad1)"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <h4 class="text-lg font-medium text-slate-700 dark:text-navy-100">Pengguna</h4>
+        </div>
+      </div>
+
+      <div class="space-y-4 p-4 sm:p-5">
+        <label class="block">
+          <span>Nama</span>
+          <input
+            required
+            [(ngModel)]="name"
+            class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+            placeholder="Masukkan nama pengguna"
+            type="text"
+          />
+        </label>
+
+        <label class="block">
+          <span>Username</span>
+          <input
+            required
+            [(ngModel)]="username"
+            class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+            placeholder="Masukkan Username"
+            type="text"
+          />
+        </label>
+
+        <label class="block">
+          <span>NIP</span>
+          <input
+            required
+            [(ngModel)]="nik"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            (keypress)="allowOnlyDigits($event)"
+            class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+            placeholder="Masukkan NIP"
+            type="text"
+          />
+        </label>
+
+
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-1">
+          <label class="block">
+            <span>Nomor Telepon</span>
+            <span class="relative mt-1.5 flex">
+              <input
+                [(ngModel)]="phone_number"
+                class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                placeholder="Masukkan nomor telepon"
+                type="text"
+                (keypress)="allowOnlyDigits($event)"
+              >
+              <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                <i class="fa fa-phone"></i>
+              </span>
+            </span>
+          </label>
+
+          <!-- <label class="block">
+            <span>Alamat Email</span>
+            <span class="relative mt-1.5 flex">
+              <input
+                [(ngModel)]="email"
+                class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                placeholder="Masukkan alamat email"
+                type="text"
+              >
+              <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                <i class="fa-regular fa-envelope text-base"></i>
+              </span>
+            </span>
+          </label> -->
+        </div>
+
+        <label
+            *ngIf="roleUser === 'management' || roleUser === 'foreman'"
+            class="block"
+          >
+          <span>Password</span>
+          <span class="relative mt-1.5 flex">
+            <input
+              [(ngModel)]="password"
+              class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pr-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+              placeholder="Masukkan Password"
+              type="text"
+            />
+            <div class="pointer-events-none absolute right-0 flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+              <svg fill="currentColor" class="h-4.5 w-4.5" viewBox="0 0 20 20">
+                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                <path
+                  fill-rule="evenodd"
+                  d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </div>
+          </span>
+        </label>
+
+       <label
+          *ngIf="roleUser === 'management'"
+          class="block"
+        >
+          <span>Peran</span>
+          <select
+            [(ngModel)]="role"
+            class="form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent"
+          >
+            <option value="" disabled selected>Pilih Peran</option>
+            <option value="management">Manajemen</option>
+            <option value="technician">Teknisi</option>
+            <option value="foreman">Mandor</option>
+            <option value="tailor">Penjahit</option>
+          </select>
+        </label>
+
+        <div class="alert flex overflow-hidden rounded-lg bg-danger/10 text-danger dark:bg-danger/15" [ngClass]="{'hidden':error_message===''}">
+          <div class="flex flex-1 items-center space-x-3 p-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              />
+            </svg>
+            <div class="flex-1">{{ error_message }}</div>
+          </div>
+          <div class="w-1.5 bg-danger"></div>
+        </div>
+
+        <div class="flex justify-end">
+          <div id="button-group-save" class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 pt-4">
+            <button
+              (click)="backBtn()"
+              class="btn w-full sm:w-auto space-x-2 bg-slate-150 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
+            >
+              Batal
+            </button>
+            <button
+              (click)="save()"
+              class="btn w-full sm:w-auto space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
+            >
+              Simpan
+            </button>
+          </div>
+          <div id="progress-save" class="hidden spinner is-elastic h-7 w-7 animate-spin rounded-full border-[3px] border-primary border-r-transparent dark:border-accent dark:border-r-transparent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Side Container for Foreman and Machine -->
+  <div class="col-span-1 lg:col-span-6" *ngIf="haveId() && showForm(role)">
+    <div class="space-y-4 sm:space-y-5 lg:space-y-6">
+
+      <!-- Foreman Section -->
+      <div class="card" *ngIf = "roleUser === 'management' && currentSelectedRole === 'tailor'">
+        <div class="border-b border-slate-200 p-4 dark:border-navy-500 sm:px-5">
+          <div class="flex items-center space-x-2">
+            <div class="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 p-1 text-primary dark:bg-accent-light/10 dark:text-accent-light">
+              <i class="fas fa-user-tie text-sm"></i>
+            </div>
+            <h4 class="text-lg font-medium text-slate-700 dark:text-navy-100">Tugaskan Mandor</h4>
+          </div>
+        </div>
+
+        <div class="p-4 sm:p-5">
+
+          <!-- Current Foreman Status -->
+          <div class="mb-4">
+            <!-- No Foreman Assigned -->
+            <div class="text-center py-3" *ngIf="!currentForeman">
+              <i class="fas fa-user-slash text-2xl text-slate-300 dark:text-navy-400 mb-2"></i>
+              <p class="text-sm text-slate-500 dark:text-navy-300">Tidak ada mandor yang ditugaskan</p>
+            </div>
+
+            <!-- Assigned Foreman -->
+            <div class="bg-slate-50 dark:bg-navy-600 rounded-lg p-3" *ngIf="currentForeman">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3 min-w-0 flex-1">
+                  <div class="min-w-0 flex-1">
+                    <p class="font-medium text-slate-700 dark:text-navy-100 truncate">{{ currentForeman.name }}</p>
+                    <p class="text-xs text-slate-400 dark:text-navy-300 truncate">{{ currentForeman.username }}</p>
+                  </div>
+                </div>
+                <button
+                  (click)="removeForeman()"
+                  class="btn h-7 w-7 rounded-full bg-danger p-0 font-medium text-white hover:bg-danger-focus focus:bg-danger-focus"
+                >
+                  <i class="fas fa-times text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Available Foremen Section -->
+          <div class="space-y-3">
+            <!-- Header with Search Toggle -->
+            <div class="flex items-center justify-between">
+              <h5 class="font-medium text-slate-700 dark:text-navy-100">Daftar Mandor Tersedia</h5>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs text-slate-500 dark:text-navy-300">{{ listForeman.length }} Mandor</span>
+                <button
+                  (click)="isSearchShow = !isSearchShow"
+                  class="btn h-7 w-7 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20"
+                >
+                  <i class="fas fa-search text-xs"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Search Input -->
+            <div class="transition-all duration-200" [ngClass]="{'hidden': !isSearchShow}">
+              <div class="relative">
+                <input
+                  class="form-input w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 text-sm placeholder:text-slate-400 dark:border-navy-450 dark:placeholder:text-navy-300"
+                  placeholder="cari mandor..."
+                  type="text"
+                  (keyup)="onSearchForeman($event)"
+                />
+                <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-navy-300">
+                  <i class="fas fa-search text-xs"></i>
+                </span>
+              </div>
+            </div>
+
+            <!-- Foreman List -->
+            <div class="space-y-2 max-h-60 overflow-y-auto">
+              <!-- Loading State -->
+              <div class="text-center py-6" *ngIf="isLoadingForeman">
+                <div class="spinner is-elastic h-5 w-5 animate-spin rounded-full border-[3px] border-primary border-r-transparent dark:border-accent dark:border-r-transparent mx-auto"></div>
+                <p class="text-xs text-slate-500 dark:text-navy-300 mt-2">Memuat...</p>
+              </div>
+
+              <!-- Foreman Items -->
+              <div
+                *ngFor="let foreman of listForeman; let i = index"
+                class="border border-slate-200 dark:border-navy-600 rounded-lg p-3 transition-all duration-200 cursor-pointer"
+                [ngClass]="{
+                  'hover:bg-slate-50 dark:hover:bg-navy-600 hover:border-slate-300 dark:hover:border-navy-500': foreman.status === 'available' && !currentForeman,
+                  'opacity-50 cursor-not-allowed': foreman.status === 'busy' || currentForeman,
+                  'bg-primary/5 border-primary/30': currentForeman && currentForeman.id === foreman.id
+                }"
+                (click)="selectForeman(foreman)"
+              >
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center space-x-3 min-w-0 flex-1">
+                    <div class="min-w-0 flex-1">
+                      <p class="font-medium text-slate-700 dark:text-navy-100 truncate">{{ foreman.name }}</p>
+                      <p class="text-xs text-slate-400 dark:text-navy-300 truncate">{{ foreman.username }}</p>
+                    </div>
+                  </div>
+                  <span class="px-2 py-1 text-xs rounded-full bg-success/10 text-success">
+                    {{ foreman.tailors_count }} Penjahit
+                  </span>
+                </div>
+              </div>
+
+              <!-- No Results -->
+              <div class="text-center py-6" *ngIf="!isLoadingForeman && listForeman.length === 0">
+                <i class="fas fa-search text-xl text-slate-300 dark:text-navy-400 mb-2"></i>
+                <p class="text-sm text-slate-500 dark:text-navy-300">Daftar Mandor Tersedia</p>
+              </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="flex justify-center items-center space-x-1 pt-3 border-t border-slate-200 dark:border-navy-600" *ngIf="totalForemanPages > 1">
+              <button
+                (click)="setForemanPage(selectedForemanPage - 1)"
+                [disabled]="selectedForemanPage <= 1"
+                class="btn h-7 w-7 rounded-lg p-0 text-slate-500 hover:bg-slate-200 dark:text-navy-300 dark:hover:bg-navy-450 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <i class="fas fa-chevron-left text-xs"></i>
+              </button>
+
+              <div class="flex space-x-1">
+                <button
+                  *ngFor="let page of visibleForemanPages"
+                  (click)="setForemanPage(page)"
+                  class="btn h-7 min-w-7 rounded-lg px-2 text-sm transition-colors"
+                  [ngClass]="{
+                    'bg-primary text-white hover:bg-primary-focus dark:bg-accent dark:hover:bg-accent-focus': page === selectedForemanPage,
+                    'text-slate-600 hover:bg-slate-200 dark:text-navy-300 dark:hover:bg-navy-450': page !== selectedForemanPage
+                  }"
+                >
+                  {{ page }}
+                </button>
+              </div>
+
+              <button
+                (click)="setForemanPage(selectedForemanPage + 1)"
+                [disabled]="selectedForemanPage >= totalForemanPages"
+                class="btn h-7 w-7 rounded-lg p-0 text-slate-500 hover:bg-slate-200 dark:text-navy-300 dark:hover:bg-navy-450 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+            </div>
+
+            <!-- Summary Info -->
+            <div class="text-center text-xs text-slate-500 dark:text-navy-300" *ngIf="totalForemen > 0">
+              {{ listForeman.length }} dari {{ totalForemen }} mandor
+              <span *ngIf="totalForemanPages > 1"> • Halaman {{ selectedForemanPage }}/{{ totalForemanPages }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Machine Section -->
+      <div class="card" *ngIf="roleUser === 'foreman'">
+        <div class="border-b border-slate-200 p-4 dark:border-navy-500 sm:px-5">
+          <div class="flex items-center space-x-2">
+            <div class="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 p-1 text-primary dark:bg-accent-light/10 dark:text-accent-light">
+              <svg class="h-12 w-12 rounded-lg object-cover object-center" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#a152f5;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#8cb4f0;stop-opacity:1" />
+                  </linearGradient>
+                </defs>
+                <g fill="url(#grad1)">
+                  <path d="M28 3L28 4L26 4L26 12L15 12L15 10L13 10L13 12L10 12C7.28125 12 5 14.171875 5 17C5 18.300781 5.25 20.75 5.5 22.96875C5.75 25.1875 6 27.125 6 27.125L6.125 28L10 28L10 30L9 30L9 32L13 32L13 30L12 30L12 28L15.78125 28L16.59375 24.75C16.707031 24.300781 17.101563 24 17.5625 24L22.84375 24C23.8125 24 24.652344 24.664063 24.8125 25.59375C24.90625 26.136719 25 27.597656 25 28.5625C25 29.527344 24.910156 30.839844 24.8125 31.40625C24.652344 32.335938 23.8125 33 22.84375 33L8 33C5.25 33 3 35.25 3 38L3 43C3 44.644531 4.355469 46 6 46L8 46L8 47L13 47L13 46L33 46L33 47L38 47L38 46L40 46C41.644531 46 43 44.644531 43 43L43 24L47 24L47 15L42.5625 15C41.785156 13.242188 40.035156 12 38 12L36 12L36 8L34 8L34 12L32 12L32 4L30 4L30 3 Z M 28 6L30 6L30 12L28 12 Z M 10 14L11 14L11 23L13 23L13 14L38 14C39.667969 14 41 15.332031 41 17L41 43C41 43.566406 40.566406 44 40 44L6 44C5.433594 44 5 43.566406 5 43L5 38C5 36.332031 6.332031 35 8 35L22.84375 35C24.753906 35 26.449219 33.65625 26.78125 31.75C26.925781 30.929688 27 29.640625 27 28.5625C27 27.484375 26.929688 26.09375 26.78125 25.25C26.449219 23.34375 24.753906 22 22.84375 22L17.5625 22C16.191406 22 14.988281 22.953125 14.65625 24.28125L14.21875 26L7.90625 26C7.832031 25.417969 7.695313 24.484375 7.5 22.75C7.25 20.546875 7 18.011719 7 17C7 15.203125 8.300781 14 10 14 Z M 34 17C32.355469 17 31 18.355469 31 20C31 21.644531 32.355469 23 34 23C35.644531 23 37 21.644531 37 20C37 18.355469 35.644531 17 34 17 Z M 43 17L45 17L45 22L43 22 Z M 34 19C34.5625 19 35 19.4375 35 20C35 20.5625 34.5625 21 34 21C33.4375 21 33 20.5625 33 20C33 19.4375 33.4375 19 34 19 Z M 34 27C31.25 27 29 29.25 29 32C29 34.75 31.25 37 34 37C36.75 37 39 34.75 39 32C39 29.25 36.75 27 34 27 Z M 34 29C35.667969 29 37 30.332031 37 32C37 33.667969 35.667969 35 34 35C32.332031 35 31 33.667969 31 32C31 30.332031 32.332031 29 34 29Z" />
+                </g>
+              </svg>
+            </div>
+            <h4 class="text-lg font-medium text-slate-700 dark:text-navy-100">Mesin Pengguna</h4>
+          </div>
+        </div>
+
+        <div class="space-y-4 p-4 sm:p-5">
+          <!-- Current Machine Status -->
+          <div class="text-center py-4" *ngIf="nim == ''">
+            <div class="text-slate-500 dark:text-navy-300">
+              <i class="fas fa-cog text-xl mb-2 opacity-50"></i>
+              <p>Belum memiliki mesin</p>
+            </div>
+          </div>
+
+          <!-- Assigned Machine -->
+          <div class="border rounded-lg p-3 border-transparent bg-slate-50 dark:bg-navy-600" *ngIf="nim != ''">
+            <div class="flex flex-col space-y-2">
+              <div class="flex items-start items-stretch">
+                <div class="flex items-start pt-1 mr-2">
+                  <div
+                    class="h-3 w-3 rounded-full"
+                    [ngClass]="{
+                      'bg-success': status == 'available',
+                      'bg-danger': status !== 'available'
+                    }"
+                  ></div>
+                </div>
+                <div class="">
+                  <p class="font-semibold text-slate-700 dark:text-navy-100 truncate">
+                    {{ machine_merk }}
+                  </p>
+                  <p class="text-sm text-slate-500 dark:text-navy-300 truncate">
+                    {{ nim }}
+                  </p>
+                </div>
+
+                <div class="w-[2px] bg-slate-300 dark:bg-navy-500 ms-12 me-2"></div>
+                <div class="flex-1">
+                  <p class="font-medium text-slate-700 dark:text-navy-100 truncate">
+                    {{ machine_type }}
+                  </p>
+                </div>
+
+                <div class="flex items-center ml-2">
+                  <button
+                    (click)="removeMachine()"
+                    class="btn h-8 w-8 rounded-full bg-danger p-0 font-medium text-white hover:bg-danger-focus focus:bg-danger-focus dark:bg-danger dark:hover:bg-danger-focus"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+
+              </div>
+              <div *ngIf="function">
+                <p class="text-sm text-slate-600 dark:text-navy-300 truncate ms-5">
+                  {{ function }}
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Machine List Header -->
+          <div class="flex items-center justify-between">
+            <h5 class="font-medium text-slate-700 dark:text-navy-100">Daftar Mesin</h5>
+            <button
+              (click)="isSearchShow = !isSearchShow"
+              class="btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Search Input -->
+          <div class="transition-all duration-200" [ngClass]="{'hidden': !isSearchShow}">
+            <input
+              class="form-input w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 text-sm placeholder:text-slate-400 dark:border-navy-450 dark:placeholder:text-navy-300"
+              placeholder="Cari mesin..."
+              type="text"
+              (keyup)="onSearch($event)"
+            />
+          </div>
+
+          <!-- Machine List -->
+          <div class="space-y-2 max-h-64 overflow-y-auto" [ngClass]="{'opacity-50': nim !== ''}">
+            <div class="space-y-2 max-h-64 overflow-y-auto" [ngClass]="{'opacity-50': nim !== ''}">
+              <div
+                *ngFor="let item of listMachines; let i = index"
+                [ngClass]="{'hidden': isLoadingLoad}"
+                class="border border-slate-200 rounded-lg p-3 hover:bg-slate-50 dark:border-navy-500 dark:hover:bg-navy-600 transition-colors"
+              >
+
+                <div class="flex flex-col space-y-2">
+                  <div class="flex items-start items-stretch">
+                    <div class="">
+                      <p class="font-semibold text-slate-700 dark:text-navy-100">
+                        {{ item.machine_merk }}
+                      </p>
+                      <p class="text-sm text-slate-500 dark:text-navy-300">
+                        {{ item.nim }}
+                      </p>
+                    </div>
+                    <div class="w-[2px] bg-slate-300 dark:bg-navy-500 ms-12 me-2"></div>
+                    <div class="flex-1">
+                      <p class="font-medium text-slate-700 dark:text-navy-100">
+                        {{ item.machine_type }}
+                      </p>
+                    </div>
+                    <div class="flex items-center space-x-2 ml-2">
+
+                      <span
+                        class="px-2 py-1 text-xs rounded-full"
+                        [ngClass]="{
+                          'bg-success/10 text-success border border-success/20': item.status === 'available',
+                          'bg-danger/10 text-danger border border-danger/20': item.status !== 'available'
+                        }"
+                      >
+                        {{ getStatusIN(item.status) }}
+                      </span>
+
+                      <button
+                        [disabled]="nim !== ''"
+                        (click)="setMachine(item.id)"
+                        class="btn h-7 w-7 rounded-full p-0 text-white"
+                        [ngClass]="{
+                          'bg-green-500 hover:bg-green-600': item.status === 'available',
+                          'bg-red-500 hover:bg-red-600': item.status !== 'available'
+                        }"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                      </button>
+
+                    </div>
+
+                  </div>
+                  <div>
+                    <p class="text-sm text-slate-600 dark:text-navy-300">
+                      {{ item.function }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <!-- Loading State -->
+          <div [ngClass]="{'hidden': !isLoadingLoad}" class="text-center py-4">
+            <div class="spinner is-elastic h-6 w-6 animate-spin rounded-full border-[3px] border-primary border-r-transparent dark:border-accent dark:border-r-transparent mx-auto"></div>
+          </div>
+
+          <div *ngIf="!isLoadingLoad && listMachines?.length === 0" class="text-center py-4">
+            <div class="text-slate-500 dark:text-navy-300">
+              <i class="fas fa-box-open text-xl mb-2 opacity-50"></i>
+              <p>Tidak ada mesin tersedia</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex justify-center items-center space-x-1 pt-2">
+          <button
+            (click)="setPage(selectedPage-1)"
+            class="btn h-8 w-8 rounded-lg p-0 text-slate-500 hover:bg-slate-200 dark:text-navy-300 dark:hover:bg-navy-450"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          <div class="flex space-x-1">
+            <button
+              *ngFor="let page of visiblePages"
+              (click)="setPage(page)"
+              class="btn h-8 min-w-[2rem] rounded-lg px-2 text-sm transition-colors"
+              [ngClass]="{'bg-primary text-white hover:bg-primary-focus dark:bg-accent dark:hover:bg-accent-focus': page === selectedPage, 'text-slate-600 hover:bg-slate-200 dark:text-navy-300 dark:hover:bg-navy-450': page !== selectedPage}"
+            >
+              {{ page }}
+            </button>
+          </div>
+
+          <button
+            (click)="setPage(selectedPage+1)"
+            class="btn h-8 w-8 rounded-lg p-0 text-slate-500 hover:bg-slate-200 dark:text-navy-300 dark:hover:bg-navy-450"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

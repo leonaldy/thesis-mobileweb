@@ -1,0 +1,81 @@
+<div class="flex items-center space-x-4 py-5 lg:py-6">
+  <!-- <h2 class="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">
+    Add Form
+  </h2> -->
+</div>
+
+<div class="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
+  <div class="col-span-12 grid lg:col-span-8">
+    <div class="card">
+      <div
+        class="border-b border-slate-200 p-4 dark:border-navy-500 sm:px-5"
+      >
+        <div class="flex items-center space-x-2">
+          <div class="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 p-1 text-primary dark:bg-accent-light/10 dark:text-accent-light">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24">
+              <defs>
+                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#a152f5;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#8cb4f0;stop-opacity:1" />
+                </linearGradient>
+              </defs>
+              <path fill="url(#grad1)" stroke="url(#grad1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                d="M14 8V5M11 5H17M6 12H3M3 9V15M21 11V19M9 12H9.01M12 12H12.01M15 12H15.01M6 8V16H8L10 19H18V10L16 8H6Z" />
+            </svg>
+          </div>
+          <h4 class="text-lg font-medium text-slate-700 dark:text-navy-100">
+            Suku Cadang
+          </h4>
+        </div>
+      </div>
+      <div class="space-y-4 p-4 sm:p-5">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <label class="block">
+            <span>Nama</span>
+            <input [(ngModel)]="sparepart_name" class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Masukkan nama" type="text"/>
+          </label>
+          <label class="block">
+            <span>Stok</span>
+            <input
+              [(ngModel)]="qty"
+              class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+              placeholder="Masukkan jumlah stok"
+              type="number"
+            />
+          </label>
+        </div>
+        <div class="alert flex overflow-hidden rounded-lg bg-danger/10 text-danger dark:bg-danger/15" [ngClass]="{'hidden':error_message===''}">
+          <div class="flex flex-1 items-center space-x-3 p-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              />
+            </svg>
+            <div class="flex-1">{{ error_message }}</div>
+          </div>
+          <div class="w-1.5 bg-danger"></div>
+        </div>
+        <div class="flex justify-end">
+          <div id="button-group-save" class="space-x-2 pt-4">
+            <button (click)="backBtn()" class="btn space-x-2 bg-slate-150 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
+              Batal
+            </button>
+            <button (click)="save()" class="btn space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+              Simpan
+            </button>
+          </div>
+          <div id="progress-save" class="hidden spinner is-elastic h-7 w-7 animate-spin rounded-full border-[3px] border-primary border-r-transparent dark:border-accent dark:border-r-transparent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

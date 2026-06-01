@@ -1,0 +1,317 @@
+<ion-content [fullscreen]="true" class="bg-slate-50 dark:bg-navy-900">
+  <main class="main-content px-[var(--margin-x)] pb-8 bg-slate-50 dark:bg-navy-900">
+    <div class="gap-3 mt-3">
+      <!-- Profile Header Section -->
+      <div class="col-span-12 p-6 rounded-lg bg-white dark:bg-navy-800 shadow-sm mb-6">
+        <div class="flex flex-col lg:flex-row items-center lg:items-start gap-6">
+          <div class="avatar h-40 w-40 lg:h-52 lg:w-52 flex-shrink-0">
+            <img
+              class="rounded-full shadow-lg border-4 border-slate-100 dark:border-navy-700"
+              [src]="getProfileImage(role)"
+              alt="avatar"
+            />
+          </div>
+          <div class="flex-1 text-center lg:text-left">
+            <div class="mb-4">
+              <h1 class="text-2xl lg:text-3xl font-bold text-slate-800 dark:text-navy-100 mb-2">{{name}}</h1>
+              <p class="text-slate-600 dark:text-navy-300 text-lg">{{username}}</p>
+            </div>
+            <div [ngClass]="{'inline-flex items-center px-6 py-2 capitalize rounded-full border text-base font-medium':true,
+              'bg-info/15 border-info text-info':role === 'foreman',
+              'bg-error/15 border-error text-error':role === 'tailor',
+              'bg-success/15 border-success text-success':role === 'technician',
+              'bg-primary/15 border-primary text-primary':role === 'management'}">
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+              </svg>
+              {{ getRoleIN(role) }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content Grid -->
+      <div class="grid grid-cols-12 gap-6">
+        <!-- Profile Information Card -->
+        <div class="col-span-12" [ngClass]="{'lg:col-span-8':role == 'tailor','lg:col-span-12':role != 'tailor'}">
+          <div class="card shadow-sm">
+            <div class="border-b border-slate-200 p-6 dark:border-navy-500">
+              <div class="flex items-center space-x-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 p-2 text-primary dark:bg-accent-light/10 dark:text-accent-light">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#a152f5; stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#8cb4f0; stop-opacity:1" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M14.3365 12.3466L14.0765 11.9195C13.9082 12.022 13.8158 12.2137 13.8405 12.4092C13.8651 12.6046 14.0022 12.7674 14.1907 12.8249L14.3365 12.3466ZM9.6634 12.3466L9.80923 12.8249C9.99769 12.7674 10.1348 12.6046 10.1595 12.4092C10.1841 12.2137 10.0917 12.022 9.92339 11.9195L9.6634 12.3466ZM4.06161 19.002L3.56544 18.9402L4.06161 19.002ZM19.9383 19.002L20.4345 18.9402L19.9383 19.002ZM16 8.5C16 9.94799 15.2309 11.2168 14.0765 11.9195L14.5965 12.7737C16.0365 11.8971 17 10.3113 17 8.5H16ZM12 4.5C14.2091 4.5 16 6.29086 16 8.5H17C17 5.73858 14.7614 3.5 12 3.5V4.5ZM7.99996 8.5C7.99996 6.29086 9.79082 4.5 12 4.5V3.5C9.23854 3.5 6.99996 5.73858 6.99996 8.5H7.99996ZM9.92339 11.9195C8.76904 11.2168 7.99996 9.948 7.99996 8.5H6.99996C6.99996 10.3113 7.96342 11.8971 9.40342 12.7737L9.92339 11.9195ZM9.51758 11.8683C6.36083 12.8309 3.98356 15.5804 3.56544 18.9402L4.55778 19.0637C4.92638 16.1018 7.02381 13.6742 9.80923 12.8249L9.51758 11.8683ZM3.56544 18.9402C3.45493 19.8282 4.19055 20.5 4.99996 20.5V19.5C4.70481 19.5 4.53188 19.2719 4.55778 19.0637L3.56544 18.9402ZM4.99996 20.5H19V19.5H4.99996V20.5ZM19 20.5C19.8094 20.5 20.545 19.8282 20.4345 18.9402L19.4421 19.0637C19.468 19.2719 19.2951 19.5 19 19.5V20.5ZM20.4345 18.9402C20.0164 15.5804 17.6391 12.8309 14.4823 11.8683L14.1907 12.8249C16.9761 13.6742 19.0735 16.1018 19.4421 19.0637L20.4345 18.9402Z" fill="url(#grad1)"/>
+                  </svg>
+                </div>
+                <h4 class="text-xl font-semibold text-slate-700 dark:text-navy-100">
+                  Informasi Pribadi
+                </h4>
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <label class="block">
+                  <span class="text-sm font-medium text-slate-700 dark:text-navy-100 mb-2 block">Nama Lengkap</span>
+                  <input
+                    disabled="true"
+                    required
+                    [(ngModel)]="name"
+                    class="form-input w-full rounded-lg border border-slate-300 bg-slate-50 dark:bg-navy-900 px-4 py-3 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    placeholder="Masukkan nama lengkap"
+                    type="text"
+                  />
+                </label>
+                <label class="block">
+                  <span class="text-sm font-medium text-slate-700 dark:text-navy-100 mb-2 block">Username</span>
+                  <input
+                    disabled="true"
+                    required
+                    [(ngModel)]="username"
+                    class="form-input w-full rounded-lg border border-slate-300 bg-slate-50 dark:bg-navy-900 px-4 py-3 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    placeholder="Masukkan Username"
+                    type="text"
+                  />
+                </label>
+                <label class="block">
+                  <span class="text-sm font-medium text-slate-700 dark:text-navy-100 mb-2 block">Nomor Telepon</span>
+                  <span class="relative flex">
+                    <input disabled="true" [(ngModel)]="phone_number" class="form-input peer w-full rounded-lg border border-slate-300 bg-slate-50 dark:bg-navy-900 px-4 py-3 pl-12 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Masukkan nomor telepon" type="text">
+                    <span class="pointer-events-none absolute flex h-full w-12 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                      <i class="fa fa-phone"></i>
+                    </span>
+                  </span>
+                </label>
+                <!-- <label class="block">
+                  <span class="text-sm font-medium text-slate-700 dark:text-navy-100 mb-2 block">Alamat Email</span>
+                  <span class="relative flex">
+                    <input disabled="true" [(ngModel)]="email" class="form-input peer w-full rounded-lg border border-slate-300 bg-slate-50 dark:bg-navy-900 px-4 py-3 pl-12 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Masukkan alamat email" type="text">
+                    <span class="pointer-events-none absolute flex h-full w-12 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                      <i class="fa-regular fa-envelope text-base"></i>
+                    </span>
+                  </span>
+                </label> -->
+                <label class="block">
+                  <span class="text-sm font-medium text-slate-700 dark:text-navy-100 mb-2 block">NIP</span>
+                  <span class="relative flex">
+                    <input
+                      disabled="true"
+                      [(ngModel)]="nik"
+                      class="form-input peer w-full rounded-lg border border-slate-300 bg-slate-50 dark:bg-navy-900 px-4 py-3 pl-12 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                      placeholder="Masukkan NIP"
+                      type="text"
+                    />
+                    <span class="pointer-events-none absolute flex h-full w-12 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                      <i class="fa-solid fa-id-card text-base"></i>
+                    </span>
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Sidebar for Tailor -->
+        <div class="lg:col-span-4 col-span-12 flex flex-col space-y-6" *ngIf="role == 'tailor'">
+          <!-- Foreman Information Card -->
+          <div class="card shadow-sm">
+            <div class="border-b border-slate-200 p-4 dark:border-navy-500">
+              <div class="flex items-center space-x-3">
+                <!-- Icon Foreman dengan warna sama seperti logo header -->
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary dark:bg-accent-light/10 dark:text-accent-light">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24">
+                    <defs>
+                      <linearGradient id="headerIconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#a152f5; stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#8cb4f0; stop-opacity:1" />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      fill="url(#headerIconGradient)"
+                      d="M12 2C10.343 2 9 3.343 9 5s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm6 8h-1.26a6.96 6.96 0 01-9.48 0H6a4 4 0 00-4 4v2a1 1 0 001 1h2.126a5.98 5.98 0 0011.748 0H21a1 1 0 001-1v-2a4 4 0 00-4-4z"
+                    />
+                  </svg>
+                </div>
+
+                <h4 class="text-lg font-semibold text-slate-700 dark:text-navy-100">
+                  Mandor Anda
+                </h4>
+              </div>
+            </div>
+
+            <!-- Foreman Info Display -->
+            <div class="p-4" *ngIf="foreman != null">
+              <div class="text-center">
+                <div class="avatar h-16 w-16 mx-auto mb-3">
+                  <img
+                    class="rounded-full border-2 border-info/20"
+                    src="../../../assets/images/pp_foreman.jpg"
+                    alt="foreman avatar" />
+                </div>
+                <h5 class="font-semibold text-slate-700 dark:text-navy-100 mb-1">{{ foreman.name }}</h5>
+                <p class="text-xs text-slate-400 dark:text-navy-200 mb-2 italic">{{foreman.username}}</p>
+
+              </div>
+            </div>
+
+            <!-- No Foreman Assigned -->
+            <div class="p-4" *ngIf="foreman == null">
+              <div class="text-center">
+                <h5 class="font-semibold text-slate-700 dark:text-navy-100 mb-1">Tidak Ada Mandor yang Ditugaskan</h5>
+                <p class="text-xs text-slate-400">Silakan hubungi administrator Anda.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Machine Information Card -->
+          <div class="card shadow-sm">
+            <div class="border-b border-slate-200 p-4 dark:border-navy-500">
+              <div class="flex items-center space-x-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 p-2 text-primary dark:bg-accent-light/10 dark:text-accent-light">
+                  <svg class="w-5 h-5" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#a152f5;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#8cb4f0;stop-opacity:1" />
+                      </linearGradient>
+                    </defs>
+                    <g fill="url(#grad2)">
+                      <path d="M28 3L28 4L26 4L26 12L15 12L15 10L13 10L13 12L10 12C7.28125 12 5 14.171875 5 17C5 18.300781 5.25 20.75 5.5 22.96875C5.75 25.1875 6 27.125 6 27.125L6.125 28L10 28L10 30L9 30L9 32L13 32L13 30L12 30L12 28L15.78125 28L16.59375 24.75C16.707031 24.300781 17.101563 24 17.5625 24L22.84375 24C23.8125 24 24.652344 24.664063 24.8125 25.59375C24.90625 26.136719 25 27.597656 25 28.5625C25 29.527344 24.910156 30.839844 24.8125 31.40625C24.652344 32.335938 23.8125 33 22.84375 33L8 33C5.25 33 3 35.25 3 38L3 43C3 44.644531 4.355469 46 6 46L8 46L8 47L13 47L13 46L33 46L33 47L38 47L38 46L40 46C41.644531 46 43 44.644531 43 43L43 24L47 24L47 15L42.5625 15C41.785156 13.242188 40.035156 12 38 12L36 12L36 8L34 8L34 12L32 12L32 4L30 4L30 3 Z M 28 6L30 6L30 12L28 12 Z M 10 14L11 14L11 23L13 23L13 14L38 14C39.667969 14 41 15.332031 41 17L41 43C41 43.566406 40.566406 44 40 44L6 44C5.433594 44 5 43.566406 5 43L5 38C5 36.332031 6.332031 35 8 35L22.84375 35C24.753906 35 26.449219 33.65625 26.78125 31.75C26.925781 30.929688 27 29.640625 27 28.5625C27 27.484375 26.929688 26.09375 26.78125 25.25C26.449219 23.34375 24.753906 22 22.84375 22L17.5625 22C16.191406 22 14.988281 22.953125 14.65625 24.28125L14.21875 26L7.90625 26C7.832031 25.417969 7.695313 24.484375 7.5 22.75C7.25 20.546875 7 18.011719 7 17C7 15.203125 8.300781 14 10 14 Z M 34 17C32.355469 17 31 18.355469 31 20C31 21.644531 32.355469 23 34 23C35.644531 23 37 21.644531 37 20C37 18.355469 35.644531 17 34 17 Z M 43 17L45 17L45 22L43 22 Z M 34 19C34.5625 19 35 19.4375 35 20C35 20.5625 34.5625 21 34 21C33.4375 21 33 20.5625 33 20C33 19.4375 33.4375 19 34 19 Z M 34 27C31.25 27 29 29.25 29 32C29 34.75 31.25 37 34 37C36.75 37 39 34.75 39 32C39 29.25 36.75 27 34 27 Z M 34 29C35.667969 29 37 30.332031 37 32C37 33.667969 35.667969 35 34 35C32.332031 35 31 33.667969 31 32C31 30.332031 32.332031 29 34 29Z" />
+                    </g>
+                  </svg>
+                </div>
+                <h4 class="text-lg font-semibold text-slate-700 dark:text-navy-100">
+                  Mesin Anda
+                </h4>
+              </div>
+            </div>
+            <div class="p-4" *ngIf="nim != ''">
+              <div class="space-y-4">
+                <!-- NIM -->
+                <label class="block">
+                  <span class="text-sm font-medium text-slate-700 dark:text-navy-100 mb-2 block">NIM</span>
+                  <input
+                    [(ngModel)]="nim"
+                    class="form-input w-full rounded-lg border border-slate-300 bg-slate-50 dark:bg-navy-900 px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    placeholder="Masukkan NIM"
+                    type="text"
+                    disabled="true"
+                  />
+                </label>
+
+                <!-- Merk -->
+                <label class="block">
+                  <span class="text-sm font-medium text-slate-700 dark:text-navy-100 mb-2 block">Merk</span>
+                  <input
+                    [(ngModel)]="machine_merk"
+                    class="form-input w-full rounded-lg border border-slate-300 bg-slate-50 dark:bg-navy-900 px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    placeholder="Masukkan merk mesin"
+                    type="text"
+                    disabled="true"
+                  />
+                </label>
+
+                <!-- Type -->
+                <label class="block">
+                  <span class="text-sm font-medium text-slate-700 dark:text-navy-100 mb-2 block">Tipe</span>
+                  <input
+                    [(ngModel)]="machine_type"
+                    class="form-input w-full rounded-lg border border-slate-300 bg-slate-50 dark:bg-navy-900 px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    placeholder="Masukkan tipe mesin"
+                    type="text"
+                    disabled="true"
+                  />
+                </label>
+
+                <!-- Function -->
+                <label class="block">
+                  <span class="text-sm font-medium text-slate-700 dark:text-navy-100 mb-2 block">Fungsi Mesin</span>
+                  <textarea
+                    [(ngModel)]="function"
+                    rows="3"
+                    placeholder="Function of Machine"
+                    class="form-textarea w-full rounded-lg border border-slate-300 bg-slate-50 dark:bg-navy-900 p-3 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    disabled="true">
+                  </textarea>
+                </label>
+
+                <!-- Status + Report Button -->
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+                  <div class="min-w-0">
+                    <span class="text-sm font-medium text-slate-700 dark:text-navy-100 block mb-1">Status Saat Ini</span>
+                    <div [ngClass]="{
+                      'inline-flex items-center px-3 py-1 rounded-full text-sm font-medium': true,
+                      'bg-success/15 border border-success text-success': status === 'available',
+                      'bg-error/15 border border-error text-error': status === 'under repair',
+                      'bg-warning/15 border border-warning text-warning': status === 'repair requested',
+                      'bg-slate-300/60 border border-slate-400 text-slate-800 dark:bg-slate-700/40 dark:border-slate-600 dark:text-slate-200': 'on hold',
+                      'bg-slate-200 text-slate-700': status !== 'available' && status !== 'under repair' && status !== 'repair requested' && status !== 'on hold'
+                    }">
+                      <svg class="w-3 h-3 mr-1 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                              clip-rule="evenodd" />
+                      </svg>
+                      {{ getStatusIN(status) }}
+                    </div>
+                  </div>
+
+                  <!-- Container tombol: kolom di mobile, baris di desktop -->
+                  <div class="flex flex-col sm:flex-row gap-2 sm:ml-auto w-full sm:w-auto">
+                    <!-- Tombol Detail Report -->
+                    <button
+                      *ngIf="['epair requested','on hold'].includes(status)"
+                      [routerLink]="['/report/update', report_id]"
+                      class="btn flex items-center rounded-full px-6 py-2 font-medium text-white
+                            w-full sm:w-auto justify-center
+                            bg-info hover:bg-info-focus focus:bg-info-focus active:bg-info-focus/90
+                            dark:bg-info/90 dark:hover:bg-info-focus dark:focus:bg-info-focus dark:active:bg-info/80
+                            shadow-sm transition-colors duration-200 ease-in-out">
+                      <svg class="w-4 h-4 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                              d="M18 10c0 4.418-3.582 8-8 8s-8-3.582-8-8 3.582-8 8-8 8 3.582 8 8zm-4-1a1 1 0 10-2 0v3a1 1 0 102 0V9zm-1 5a1 1 0 100-2 1 1 0 000 2z"
+                              clip-rule="evenodd" />
+                      </svg>
+                      Laporan Detail
+                    </button>
+
+                    <!-- Tombol Report Issue (hanya saat available) -->
+                    <button
+                      *ngIf="status === 'available'"
+                      [routerLink]="['/report/add']"
+                      class="btn flex items-center rounded-full px-6 py-2 font-medium text-white
+                            w-full sm:w-auto justify-center
+                            bg-error hover:bg-error-focus focus:bg-error-focus active:bg-error-focus/90
+                            dark:bg-error/90 dark:hover:bg-error-focus dark:focus:bg-error-focus dark:active:bg-error/80
+                            shadow-sm transition-colors duration-200 ease-in-out">
+                      <svg class="w-4 h-4 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                              clip-rule="evenodd" />
+                      </svg>
+                      Laporkan Masalah
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="p-4 text-center" *ngIf="nim == ''">
+              <div class="py-8">
+                <svg class="w-16 h-16 mx-auto text-slate-400 dark:text-navy-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                </svg>
+                <p class="text-slate-500 dark:text-navy-400 font-medium">Tidak Ada Mesin yang Ditugaskan</p>
+                <p class="text-sm text-slate-400 dark:text-navy-500 mt-1">Silakan hubungi mandor Anda untuk penugasan mesin.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</ion-content>

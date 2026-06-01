@@ -1,0 +1,6 @@
+ion-content {
+  all: unset; /* Menghapus semua gaya default */
+  width: 100%;
+  height: 100%;
+  display: block; /* Tambahkan properti ini agar elemen tetap terlihat */
+}

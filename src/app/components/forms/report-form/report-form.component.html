@@ -1,0 +1,248 @@
+<div class="flex items-center space-x-4 py-5 lg:py-6">
+  <!-- <h2 class="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">
+    Add Form
+  </h2> -->
+</div>
+
+<div class="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
+  <div class="col-span-12 grid lg:col-span-8">
+    <div class="card">
+      <div
+        class="border-b border-slate-200 p-4 dark:border-navy-500 sm:px-5"
+      >
+        <div class="flex items-center space-x-2">
+          <div class="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 p-1 text-primary dark:bg-accent-light/10 dark:text-accent-light">
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <defs>
+                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#a152f5;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#8cb4f0;stop-opacity:1" />
+                </linearGradient>
+              </defs>
+              <path fill="url(#grad1)"  d="M256 0c53 0 96 43 96 96v3.6c0 15.7-12.7 28.4-28.4 28.4H188.4c-15.7 0-28.4-12.7-28.4-28.4V96c0-53 43-96 96-96zM41.4 105.4c12.5-12.5 32.8-12.5 45.3 0l64 64c.7 .7 1.3 1.4 1.9 2.1c14.2-7.3 30.4-11.4 47.5-11.4H312c17.1 0 33.2 4.1 47.5 11.4c.6-.7 1.2-1.4 1.9-2.1l64-64c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-64 64c-.7 .7-1.4 1.3-2.1 1.9c6.2 12 10.1 25.3 11.1 39.5H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H416c0 24.6-5.5 47.8-15.4 68.6c2.2 1.3 4.2 2.9 6 4.8l64 64c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-63.1-63.1c-24.5 21.8-55.8 36.2-90.3 39.6V240c0-8.8-7.2-16-16-16s-16 7.2-16 16V479.2c-34.5-3.4-65.8-17.8-90.3-39.6L86.6 502.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l64-64c1.9-1.9 3.9-3.4 6-4.8C101.5 367.8 96 344.6 96 320H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H96.3c1.1-14.1 5-27.5 11.1-39.5c-.7-.6-1.4-1.2-2.1-1.9l-64-64c-12.5-12.5-12.5-32.8 0-45.3z"/>
+            </svg>
+          </div>
+          <h4 class="text-lg font-medium text-slate-700 dark:text-navy-100">
+            Laporan
+          </h4>
+        </div>
+      </div>
+      <div class="space-y-4 p-4 sm:p-5">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2" *ngIf="!isTailor">
+          <!-- Machine -->
+          <div>
+            <label class="block">
+              <span>Mesin</span>
+             <input
+              [(ngModel)]="nim"
+              readonly
+              class="form-input mt-1.5 w-full rounded-lg border border-slate-300 dark:border-navy-450 bg-slate-100 dark:bg-navy-600 px-3 py-2 text-slate-500 dark:text-navy-200"
+              placeholder="Masukan NIM mesin"
+            />
+
+            </label>
+            <span class="text-tiny+" [ngClass]="{'text-danger':machine_id == 0, 'hidden':machine_id != 0}">
+              Mesin tidak terdaftar
+            </span>
+          </div>
+
+          <!-- Nik -->
+          <div>
+            <label class="block">
+              <span>Tailor - {{ name }}</span>
+              <input
+                [(ngModel)]="nik"
+                readonly
+                class="form-input mt-1.5 w-full rounded-lg border border-slate-300 dark:border-navy-450 bg-slate-100 dark:bg-navy-600 px-3 py-2 text-slate-500 dark:text-navy-200"
+                placeholder="Enter NIK tailor"
+              />
+            </label>
+            <span class="text-tiny+" [ngClass]="{'text-danger':user_id == 0,'hidden':user_id != 0}">
+              User Not Found
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block">
+            <span>Teknisi {{ action_report?.technician?.name ? '- ' + action_report?.technician?.name : '(Belum ditugaskan)' }}</span>
+            <input
+              [value]="action_report?.technician?.nik || '-'"
+              readonly
+              class="form-input mt-1.5 w-full rounded-lg border border-slate-300 dark:border-navy-450 bg-slate-100 dark:bg-navy-600 px-3 py-2 text-slate-500 dark:text-navy-200"
+              placeholder="Nama teknisi"
+            />
+          </label>
+        </div>
+
+        <label class="block">
+          <span>Judul</span>
+          <input [(ngModel)]="title" [readonly]="status === 'process' || status === 'on_hold'"
+            class="form-input mt-1.5 w-full rounded-lg border px-3 py-2
+              placeholder:text-slate-400/70
+              border-slate-300 dark:border-navy-450 bg-transparent text-slate-700 dark:text-navy-100
+              hover:border-slate-400 focus:border-primary dark:hover:border-navy-400 dark:focus:border-accent"
+            [ngClass]="{ 'bg-slate-100 text-slate-500 cursor-not-allowed dark:bg-navy-600 dark:text-navy-200': ['process','on_hold'].includes(status) }"
+            placeholder="Masukkan judul" />
+        </label>
+
+        <label class="block">
+          <span>Catatan</span>
+          <textarea [(ngModel)]="notes" rows="3" [readonly]="status === 'process' || status === 'on_hold'"
+            placeholder="Catatn untuk teknisi"
+            class="form-textarea mt-1.5 w-full rounded-lg border px-3 py-2
+              placeholder:text-slate-400/70 border-slate-300 dark:border-navy-450 bg-transparent text-slate-700 dark:text-navy-100
+              hover:border-slate-400 focus:border-primary dark:hover:border-navy-400 dark:focus:border-accent"
+            [ngClass]="{ 'bg-slate-100 text-slate-500 cursor-not-allowed dark:bg-navy-600 dark:text-navy-200': ['process','on_hold'].includes(status) }">
+          </textarea>
+        </label>
+
+        <label class="block" *ngIf="!isTailor && status !== 'request'">
+          <span>Kategori</span>
+          <select [(ngModel)]="category_id" [disabled]="status === 'process' || status === 'on_hold' "
+            class="form-select mt-1.5 w-full rounded-lg border px-3 py-2
+              border-slate-300 bg-white text-slate-700 dark:border-navy-450 dark:bg-navy-700 dark:text-navy-100
+              hover:border-slate-400 focus:border-primary dark:hover:border-navy-400 dark:focus:border-accent"
+            [ngClass]="{ 'bg-slate-100 text-slate-500 cursor-not-allowed dark:bg-navy-600 dark:text-navy-200': ['process','on_hold'].includes(status) }">
+            <option value="0" disabled>Pilih Kategori</option>
+            <option *ngFor="let category of categories" [value]="category.id">
+              {{ category.category_name }}
+            </option>
+          </select>
+        </label>
+
+        <label class="block" *ngIf="!isTailor && status !== 'request'">
+          <span>Deskripsi</span>
+          <textarea [(ngModel)]="description" rows="4" [readonly]="status === 'process' || status === 'on_hold'"
+            placeholder="Deskripsi laporan"
+            class="form-textarea mt-1.5 w-full rounded-lg border px-3 py-2
+              placeholder:text-slate-400/70 border-slate-300 dark:border-navy-450 bg-transparent text-slate-700 dark:text-navy-100
+              hover:border-slate-400 focus:border-primary dark:hover:border-navy-400 dark:focus:border-accent"
+            [ngClass]="{ 'bg-slate-100 text-slate-500 cursor-not-allowed dark:bg-navy-600 dark:text-navy-200': ['process','on_hold'].includes(status) }">
+          </textarea>
+        </label>
+
+        <label class="block" *ngIf="!isTailor">
+          <span>Status</span>
+          <select [(ngModel)]="status" disabled
+            class="form-select mt-1.5 w-full rounded-lg border px-3 py-2
+              bg-slate-100 text-slate-500 cursor-not-allowed
+              border-slate-300 dark:bg-navy-600 dark:text-navy-200 dark:border-navy-450">
+              <option value="request">Menunggu</option>
+              <option value="process">Diproses</option>
+              <option value="done">Selesai</option>
+              <option value="on_hold">Ditunda</option>
+          </select>
+        </label>
+
+        <div class="mt-3" *ngIf="status === 'on_hold'">
+          <label class="block">
+            <span>Alasan Teknisi</span>
+            <input
+              type="text"
+              [readonly]="true"
+              [value]="(action_report?.last_paused_segment?.hold_reason || action_report?.last_hold_reason) || 'Tidak ada alasan'"
+              [title]="action_report?.last_paused_segment?.hold_reason || action_report?.last_hold_reason || 'Tidak ada alasan'"
+              placeholder="Alasan teknisi"
+              class="form-input mt-1.5 w-full rounded-lg border px-3 py-2
+                    placeholder:text-slate-400/70 border-slate-300 dark:border-navy-450
+                    bg-transparent text-slate-700 dark:text-navy-100
+                    hover:border-slate-400 focus:border-primary
+                    dark:hover:border-navy-400 dark:focus:border-accent"
+              [ngClass]="{
+                'bg-slate-100 text-slate-500 cursor-not-allowed dark:bg-navy-600 dark:text-navy-200': true,
+                'italic opacity-80': !(action_report?.last_paused_segment?.hold_reason || action_report?.last_hold_reason)
+              }"
+            />
+          </label>
+
+          <!-- Waktu ditunda; kalau kosong tampilkan tanda '—' -->
+          <ng-container *ngIf="action_report?.last_paused_segment?.end_time || action_report?.last_hold_at; else noHoldTime">
+            <div class="text-xs text-slate-500 dark:text-navy-300 mt-1">
+              Ditunda sejak:
+              {{ (action_report?.last_paused_segment?.end_time || action_report?.last_hold_at) | date:'MMMM d, y, hh:mm a' }}
+            </div>
+          </ng-container>
+          <ng-template #noHoldTime>
+            <div class="text-xs text-slate-500 dark:text-navy-300 mt-1">
+              Ditunda sejak: —
+            </div>
+          </ng-template>
+        </div>
+        <div class="alert flex overflow-hidden rounded-lg bg-danger/10 text-danger dark:bg-danger/15" [ngClass]="{'hidden':error_message===''}">
+          <div class="flex flex-1 items-center space-x-3 p-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              />
+            </svg>
+            <div class="flex-1">{{ error_message }}</div>
+          </div>
+          <div class="w-1.5 bg-danger"></div>
+        </div>
+
+        <div class="pt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+          <!-- Tombol Prioritas (mobile: full width, desktop: auto) -->
+          <div *ngIf="role === 'foreman' && status === 'request'" class="order-1 sm:order-1 w-full sm:w-auto">
+            <button
+              (click)="setPriority()"
+              class="btn w-full sm:w-auto space-x-2 border border-purple-500 text-purple-600 hover:bg-purple-100
+                    dark:hover:bg-purple-500/20 dark:border-purple-400 dark:text-purple-300 font-medium">
+              {{ is_priority ? 'Batalkan Prioritas' : 'Jadikan Prioritas' }}
+            </button>
+          </div>
+
+          <!-- Grup tombol aksi (mobile: full width & stack, desktop: kanan & sejajar) -->
+          <div
+            id="button-group-save"
+            class="order-3 sm:order-2 w-full sm:w-auto sm:ml-auto
+                  flex flex-col sm:flex-row gap-2"
+          >
+            <button
+              (click)="backBtn()"
+              class="btn w-full sm:w-auto space-x-2 bg-slate-150 font-medium text-slate-800
+                    hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80
+                    dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
+              Batal
+            </button>
+
+            <button
+              *ngIf="status === 'request' && method === 'update' && (role === 'foreman' || role === 'tailor')"
+              (click)="cancelReport()"
+              class="btn w-full sm:w-auto space-x-2 bg-error font-medium text-white
+                    hover:bg-error-focus focus:bg-error-focus active:bg-error-focus/90
+                    dark:bg-error/90 dark:hover:bg-error-focus dark:focus:bg-error-focus dark:active:bg-error/80">
+              Batalkan Laporan
+            </button>
+
+            <button
+              *ngIf="!['process','on_hold'].includes(status)"
+              (click)="save()"
+              class="btn w-full sm:w-auto space-x-2 bg-primary font-medium text-white
+                    hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90
+                    dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+              Simpan
+            </button>
+          </div>
+
+          <!-- Spinner (mobile: di bawah dan center, desktop: kanan) -->
+          <div
+            id="progress-save"
+            class="order-2 sm:order-3 hidden self-center sm:self-auto
+                  spinner is-elastic h-7 w-7 animate-spin rounded-full border-[3px]
+                  border-primary border-r-transparent dark:border-accent dark:border-r-transparent">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

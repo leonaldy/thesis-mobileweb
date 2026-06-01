@@ -1,0 +1,329 @@
+<div class="flex items-center space-x-4 py-5 lg:py-6">
+  <!-- <h2 class="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">
+    Add Form
+  </h2> -->
+</div>
+
+<div class="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
+  <div class="col-span-12 grid lg:col-span-8">
+    <div class="card">
+      <div
+        class="border-b border-slate-200 p-4 dark:border-navy-500 sm:px-5"
+      >
+        <div class="flex items-center space-x-2">
+          <div class="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 p-1 text-primary dark:bg-accent-light/10 dark:text-accent-light">
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+              <defs>
+                <linearGradient id="gradPurpleBlue" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#8e2de2" />
+                  <stop offset="100%" stop-color="#4a00e0" />
+                </linearGradient>
+                <clipPath id="clip0_429_11052">
+                  <rect width="24" height="24" fill="white" />
+                </clipPath>
+              </defs>
+              <g clip-path="url(#clip0_429_11052)">
+                <circle cx="17" cy="7" r="3" stroke="url(#gradPurpleBlue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="7" cy="17" r="3" stroke="url(#gradPurpleBlue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M14 14H20V19C20 19.5523 19.5523 20 19 20H15C14.4477 20 14 19.5523 14 19V14Z" stroke="url(#gradPurpleBlue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M4 4H10V9C10 9.55228 9.55228 10 9 10H5C4.44772 10 4 9.55228 4 9V4Z" stroke="url(#gradPurpleBlue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+              </g>
+            </svg>
+          </div>
+          <h4 class="text-lg font-medium text-slate-700 dark:text-navy-100">
+            Kategori
+          </h4>
+        </div>
+      </div>
+      <div class="space-y-4 p-4 sm:p-5">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <label class="block">
+            <span>Nama Kategori</span>
+            <input
+              [(ngModel)]="category_name"
+              class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+              placeholder="Masukkan nama kategori"
+              type="text"
+            />
+          </label>
+          <label class="block">
+            <span class="text-sm font-medium text-slate-700 dark:text-navy-100">Waktu Estimasi</span>
+            <div class="flex items-center mt-1.5">
+              <input
+                [(ngModel)]="estimation"
+                type="number"
+                min="0"
+                class="form-input w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                placeholder="Masukkan waktu estimasi"
+              />
+              <span class="ml-3 text-sm text-slate-500 dark:text-navy-200 whitespace-nowrap">Menit</span>
+            </div>
+          </label>
+        </div>
+        <label class="block">
+          <span>Deskripsi</span>
+          <textarea
+            [(ngModel)]="description"
+            rows="4"
+            placeholder="Deskripsi masalah"
+            class="form-textarea mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent p-2.5 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+          >
+          </textarea>
+
+        </label>
+        <label class="block">
+          <span>Tingkat Kesulitan</span>
+          <select [(ngModel)]="difficulty" class="form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
+            <option value="" disabled selected>Pilih Tingkat Kesulitan</option>
+            <option value="easy">Mudah</option>
+            <option value="medium">Sedang</option>
+            <option value="hard">Sulit</option>
+          </select>
+        </label>
+        <!-- Header -->
+        <div class="flex items-center justify-between">
+          <span class="">
+            Suku Cadang
+          </span>
+          <span class="text-sm text-slate-500 dark:text-navy-300">
+            {{sparepartTotal}} Barang
+          </span>
+        </div>
+
+        <!-- Search Input with Dropdown (Only show when not done) -->
+        <div class="relative">
+          <div class="relative">
+            <input
+              type="text"
+              class="form-select w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent"
+              placeholder="Cari dan pilih suku cadang..."
+              [(ngModel)]="sparepartSearchTerm"
+              (ngModelChange)="onSparepartSearch()"
+              (focus)="onSearchFocus()"
+              (blur)="hideDropdown()"
+            />
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+              <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Dropdown Options -->
+          <div
+            *ngIf="showDropdown && (filteredSpareparts.length > 0 || isLoadingSpareparts)"
+            class="absolute z-10 w-full mt-1 bg-white dark:bg-navy-700 border border-slate-300 dark:border-navy-450 rounded-lg shadow-lg max-h-60 overflow-auto"
+          >
+            <!-- Loading State -->
+            <div *ngIf="isLoadingSpareparts" class="px-4 py-3 text-center text-slate-500 dark:text-navy-300">
+              <div class="flex items-center justify-center space-x-2">
+                <div class="animate-spin rounded-full h-4 w-4 border-2 border-primary border-t-transparent"></div>
+                <span>Memuat Suku Cadang...</span>
+              </div>
+            </div>
+
+            <!-- Default Header -->
+            <div
+              *ngIf="!isLoadingSpareparts && sparepartSearchTerm.length === 0 && filteredSpareparts.length > 0"
+              class="px-4 py-2 bg-slate-100 dark:bg-navy-600 text-xs font-medium text-slate-600 dark:text-navy-300 border-b border-slate-200 dark:border-navy-500"
+            >
+              Tersedia Suku Cadang ({{ filteredSpareparts.length }})
+            </div>
+
+            <div *ngIf="!isLoadingSpareparts">
+              <div
+                *ngFor="let item of filteredSpareparts"
+                (click)="selectSparepart(item)"
+                class="px-4 py-3 hover:bg-slate-50 dark:hover:bg-navy-600 cursor-pointer border-b border-slate-100 dark:border-navy-500 last:border-b-0 transition-colors"
+              >
+                <div class="flex items-center justify-between">
+                  <div class="flex-1 min-w-0">
+                    <div class="font-medium text-slate-800 dark:text-slate-100 truncate">
+                      {{ item.sparepart_name }}
+                    </div>
+                    <div class="text-sm text-slate-500 dark:text-navy-300" *ngIf="item.description">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                  <div class="flex items-center space-x-2 ml-3">
+                    <!-- Stock Info -->
+                    <div class="text-right">
+                      <div class="text-xs text-slate-500 dark:text-navy-300">Stok</div>
+                      <div class="text-sm font-medium"
+                          [class.text-green-600]="(item.qty || 0) > 10"
+                          [class.text-yellow-600]="(item.qty || 0) <= 10 && (item.qty || 0) > 0"
+                          [class.text-red-600]="(item.qty || 0) === 0">
+                        {{ item.qty || 0 }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- No Results -->
+          <div
+            *ngIf="showDropdown && !isLoadingSpareparts && filteredSpareparts.length === 0 && sparepartSearchTerm.length >= 2"
+            class="absolute z-10 w-full mt-1 bg-white dark:bg-navy-700 border border-slate-300 dark:border-navy-450 rounded-lg shadow-lg"
+          >
+            <div class="px-4 py-6 text-center text-slate-500 dark:text-navy-300">
+              <svg class="h-8 w-8 mx-auto mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+              <div class="text-sm font-medium mb-1">Tidak ada suku cadang ditemukan</div>
+              <div class="text-xs">Coba cari dengan kata kunci yang berbeda</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Selected/Used Spareparts List -->
+        <div class="space-y-3" *ngIf="(selectedSpareparts.length > 0)">
+          <div class="text-sm font-medium text-slate-600 dark:text-navy-300">
+            Suku Cadang Terpilih
+          </div>
+
+          <div class="space-y-2">
+            <!-- For Process Status - Show Selected Spareparts (Editable) -->
+            <div>
+              <div
+                *ngFor="let item of selectedSpareparts; let i = index"
+                class="flex items-center justify-between p-3 bg-slate-50 dark:bg-navy-800 rounded-lg border border-slate-200 dark:border-navy-500 transition-all hover:shadow-sm my-1"
+              >
+                <!-- Sparepart Info -->
+                <div class="flex-1 min-w-0">
+                  <div class="font-medium text-slate-800 dark:text-slate-100 truncate">
+                    {{ item.sparepart_name }}
+                  </div>
+                </div>
+
+                <!-- Quantity Controls with Stock Warning -->
+                <div class="flex items-center space-x-3">
+
+                  <!-- Quantity Input -->
+                  <div class="flex items-center space-x-2">
+                    <!-- Desktop version with +/- buttons -->
+                    <div class="hidden sm:flex items-center space-x-2">
+                      <button
+                        type="button"
+                        (click)="updateQuantity(i, item.qty - 1)"
+                        [disabled]="item.qty <= 1"
+                        class="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-200 dark:bg-navy-600 text-slate-600 dark:text-navy-200 hover:bg-slate-300 dark:hover:bg-navy-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      >
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                        </svg>
+                      </button>
+
+                      <input
+                        type="number"
+                        min="1"
+                        [(ngModel)]="item.qty"
+                        (blur)="validateQuantityInput(i, $event)"
+                        class="w-16 text-center rounded-lg border border-slate-300 dark:border-navy-450 bg-white dark:bg-navy-700 text-slate-800 dark:text-slate-100 px-2 py-1 text-sm hover:border-slate-400 focus:border-primary dark:focus:border-accent transition-colors"
+                      />
+
+                      <button
+                        type="button"
+                        (click)="updateQuantity(i, item.qty + 1)"
+                        class="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-200 dark:bg-navy-600 text-slate-600 dark:text-navy-200 hover:bg-slate-300 dark:hover:bg-navy-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      >
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                      </button>
+                    </div>
+
+                    <!-- Mobile version - simple input only -->
+                    <div class="flex sm:hidden items-center space-x-1">
+                      <span class="text-xs text-slate-600 dark:text-navy-300">Qty:</span>
+                      <input
+                        type="number"
+                        min="1"
+                        [(ngModel)]="item.qty"
+                        (blur)="validateQuantityInput(i, $event)"
+                        class="w-12 text-center rounded border border-slate-300 dark:border-navy-450 bg-white dark:bg-navy-700 text-slate-800 dark:text-slate-100 px-1 py-1 text-sm hover:border-slate-400 focus:border-primary dark:focus:border-accent transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Remove Button (Only for process status) -->
+                  <button
+                    type="button"
+                    (click)="removeSelectedSparepart(i)"
+                    class="flex h-8 w-8 items-center justify-center rounded-lg bg-error/10 text-error hover:bg-error/20 transition-colors"
+                    title="Remove sparepart"
+                  >
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div
+          *ngIf="(selectedSpareparts.length === 0)"
+          class="text-center py-8 text-slate-500 dark:text-navy-300 bg-slate-50 dark:bg-navy-800 rounded-lg border-2 border-dashed border-slate-200 dark:border-navy-500"
+        >
+          <svg class="h-12 w-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <p class="text-xs">
+            {{  'Cari dan pilih suku cadang menggunakan kotak pencarian' }}
+          </p>
+        </div>
+
+        <!-- Summary -->
+        <div
+          *ngIf="(selectedSpareparts.length > 0)"
+          class="p-3 bg-primary/5 dark:bg-accent/10 rounded-lg border border-primary/20 dark:border-accent/20"
+        >
+          <div class="flex items-center justify-between text-sm">
+            <span class="font-medium text-primary dark:text-accent">
+              Total Barang: {{selectedSpareparts.length}}
+            </span>
+            <span class="font-medium text-primary dark:text-accent">
+              Total Kuantitas: {{ getTotalQty() }}
+            </span>
+          </div>
+        </div>
+        <div class="alert flex overflow-hidden rounded-lg bg-danger/10 text-danger dark:bg-danger/15" [ngClass]="{'hidden':error_message===''}">
+          <div class="flex flex-1 items-center space-x-3 p-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              />
+            </svg>
+            <div class="flex-1">{{ error_message }}</div>
+          </div>
+          <div class="w-1.5 bg-danger"></div>
+        </div>
+        <div class="flex justify-end">
+          <div id="button-group-save" class="space-x-2 pt-4">
+            <button (click)="backBtn()" class="btn space-x-2 bg-slate-150 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
+              Batal
+            </button>
+            <button (click)="save()" class="btn space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+              Simpan
+            </button>
+          </div>
+          <div id="progress-save" class="hidden spinner is-elastic h-7 w-7 animate-spin rounded-full border-[3px] border-primary border-r-transparent dark:border-accent dark:border-r-transparent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
